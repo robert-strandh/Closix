@@ -1,0 +1,89 @@
+<HTML>
+<HEAD>
+</HEAD>
+<BODY>
+<HR>
+
+<H2><I>Function</I> WRITE</H2>
+
+<H3>Syntax</H3>
+
+<P><B>write</B> <I>file-descriptor</I> <I>vector</I> <I>start</I> <I>end</I>
+  =&gt; <I>effective-count</I>, <I>error</I></P>
+
+<H3>Arguments and values</H3>
+
+<P><I>file-descriptor</I> -- A non-negative fixnum.</P>
+
+<P><I>vector</I> -- A vector with element-type <TT>(unsigned-byte 8)</TT>.
+
+<P><I>start</I> -- A non-negative fixnum.</P>
+
+<P><I>end</I> -- A non-negative fixnum.</P>
+
+<P><I>effective-count</I> -- A non-negative fixnum.</P>
+
+<P><I>error</I> -- A fixnum. </P>
+
+<H3>Description</H3>
+
+  <P>
+    The function <TT>write</TT> writes up to <I>end - start</I>
+    bytes to the file descriptor <I>file-descriptor</I>.
+  </P>
+
+  <P>
+    The number of bytes written may be less than count if, for
+    example, there is insufficient space on the underlying physical
+    medium, or the <a href="rlimit-fsize.html">+rlimit-fsize+</a>
+    resource limit is encountered (see
+    <a href="low-setrlimit.html">setrlimit</a>), or the call was
+    interrupted by a signal handler after having written less than
+    count bytes.
+  </P>
+
+<H3>Errors</H3>
+
+<UL>
+  <LI>
+    <P>
+      If <I>file-descriptor</I> refers to a file other than a socket
+      and has been marked <I>nonblocking</I>, and the write would
+      block, then the value of <I>error</I> is
+      <a href="eagain.html">+eagain+</a>.
+    </P>
+  </LI>
+  <LI>
+    <P>
+      If <I>file-descriptor</I> is not a valid file descriptor, or not
+      open for writing, the value of <I>error</I> is
+      <a href="ebadf.html">+ebadf+</a>.
+    </P>
+  </LI>
+  <LI>
+    <P>
+      If the call was interrupted by a signal before any data was
+      write, then the value of <I>error</I> is
+      <a href="eintr.html">+eintr+</a>.
+    </P>
+  </LI>
+  <LI>
+    <P>
+      If <I>file-descriptor</I> is attached to an object which is
+      unsuitable for writing; or the file was opened with the
+      <a href="+o-direct+.html">+o-direct+</a> flag, and either the
+      value specified in by <I>end - start</I>, or the current file
+      offset is not suitably aligned, then the value of <I>error</I>
+      is
+      <a href="einval.html">+einval+</a>.
+    </P>
+  </LI>
+  <LI>
+    <P>
+      FIXME: more here...
+    </P>
+  </LI>
+</UL>
+
+</BODY>
+</HTML>
