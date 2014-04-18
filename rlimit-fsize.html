@@ -1,0 +1,17 @@
+<HTML>
+<HEAD>
+</HEAD>
+<BODY>
+<HR>
+<A NAME="+rlimit-fsize+"><I>Constant variable</I> <B>+RLIMIT-FSIZE+</B></A>
+<P>
+  The maximum size of files that the process may create.  Attempts to
+  extend a file beyond this limit result in delivery of a SIGXFSZ
+  signal.  By default, this signal terminates a process, but a process
+  can catch this signal instead, in which case the relevant system call
+  (e.g. <a href="low-write.html">write</a>, <a href="low-truncate.html">truncate</a>)
+  fails with the error <a href="efbig.html">+efbig+</a>.
+</P>
+
+</BODY>
+</HTML>
