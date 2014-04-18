@@ -1,0 +1,80 @@
+<HTML>
+<HEAD>
+</HEAD>
+<BODY>
+<HR>
+
+<H2><I>Function</I> READ</H2>
+
+<H3>Syntax</H3>
+
+<P><B>read</B> <I>file-descriptor</I> <I>vector</I> <I>start</I> <I>end</I>
+  =&gt; <I>effective-count</I>, <I>error</I></P>
+
+<H3>Arguments and values</H3>
+
+<P><I>file-descriptor</I> -- A non-negative fixnum.</P>
+
+<P><I>vector</I> -- A vector with element-type <TT>(unsigned-byte 8)</TT>.
+
+<P><I>start</I> -- A non-negative fixnum.</P>
+
+<P><I>end</I> -- A non-negative fixnum.</P>
+
+<P><I>effective-count</I> -- A non-negative fixnum.</P>
+
+<P><I>error</I> -- A fixnum. </P>
+
+<H3>Description</H3>
+
+  <P>
+    The function <TT>read</TT> attempts to read up <I>end - start</I>
+    bytes from the file descriptor <I>file-descriptor</I>, filling the
+    corresponding indices in <I>vector</I> with the bytes read.
+  </P>
+
+<H3>Errors</H3>
+
+<UL>
+  <LI>
+    <P>
+      If <I>file-descriptor</I> refers to a file other than a socket
+      and has been marked <I>nonblocking</I>, and the read would
+      block, then the value of <I>error</I> is
+      <a href="eagain.html">+eagain+</a>.
+    </P>
+  </LI>
+  <LI>
+    <P>
+      If <I>file-descriptor</I> is not a valid file descriptor, or not
+      open for reading, the value of <I>error</I> is
+      <a href="ebadf.html">+ebadf+</a>.
+    </P>
+  </LI>
+  <LI>
+    <P>
+      If the call was interrupted by a signal before any data was
+      read, then the value of <I>error</I> is
+      <a href="eintr.html">+eintr+</a>.
+    </P>
+  </LI>
+  <LI>
+    <P>
+      If <I>file-descriptor</I> is attached to an object which is
+      unsuitable for reading; or the file was opened with the
+      <a href="+o-direct+.html">+o-direct+</a> flag, and either the
+      value specified in by <I>end - start</I>, or the current file
+      offset is not suitably aligned, then the value of <I>error</I>
+      is
+      <a href="einval.html">+einval+</a>.
+    </P>
+  </LI>
+  <LI>
+    <P>
+      FIXME: more here...
+    </P>
+  </LI>
+</UL>
+
+</BODY>
+</HTML>

@@ -1,0 +1,50 @@
+<HTML>
+<HEAD><TITLE>Introduction</TITLE></HEAD>
+<BODY>
+  <H1>Introduction</H1>
+
+  <P>
+    The API comes in two levels:
+    <UL>
+      <LI>
+	<P>
+	  A low-level interface with emphasis on performance.
+	</P>
+	<P>
+	  This interface may not be extremely convenient to use, but
+	  it has minimal overhead for applications that require
+	  maximum performance.
+	</P>
+	<P>
+	  Functions at this level take a constant number of arguments
+	  so as to avoid the overhead of
+	  processing <TT>&amp;optional</TT> or <TT>&amp;key</TT>
+	  arguments.
+	</P>
+	<P>
+	  Errors at this level are indicated by additional return
+	  values in the form of small numbers.  Constant variables are
+	  supplied to allow easy comparison for error values. 
+	</P>
+      </LI>
+      <LI>
+	<P>
+	  A high-level interface with emphasis on convenience.
+	</P>
+	<P>
+	  This interface may require some overhead in order to make
+	  use more convenient to the programmer.
+	</P>
+	<P>
+	  Functions at this level may take optional or keyword
+	  arguments for convenience.  
+	</P>
+	<P>
+	  Errors at this level are indicated by some condition being
+	  signaled.  When appropriate, restarts are provided. 
+	</P>
+      </LI>
+    </UL>
+
+</BODY>
+</HTML>

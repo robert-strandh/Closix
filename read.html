@@ -1,0 +1,68 @@
+<HTML>
+<HEAD>
+</HEAD>
+<BODY>
+<HR>
+<A NAME="read"><I>Function</I> <B>READ</B></A>
+
+<P><B>Syntax:</B></P>
+
+<P><B>read</B> <I>file-descriptor</I> <I>desired-count</I>
+  =&gt; <I>vector</I>, <I>effective-count</I></P>
+<P><B>read</B> <I>file-descriptor</I> <I>vector</I>
+  <TT>&amp;key</TT>(<I>start</I> <TT>0</TT>) (<I>end</I> <TT>nil</TT>)
+  =&gt; <I>vector</I>, <I>effective-count</I></P>
+
+<P><B>Arguments and values:</B></P>
+
+<P><I>file-descriptor</I> -- A non-negative integer.</P>
+
+<P><I>desired-count</I> -- A non-negative integer.</P>
+
+<P><I>vector</I> -- A vector with element-type <TT>(unsigned-byte 8)</TT>.
+
+<P><I>effective-count</I> -- A non-negative integer.</P>
+
+<P><B>Description:</B></P>
+
+  <P>
+    The function <TT>read</TT> attempts to read up
+    to <I>desired-count</I> bytes from the file
+    descriptor <I>file-descriptor</I>.
+  </P>
+
+  <P>
+    In the first case, a freshly allocated vector is allocated and
+    returned.  The length <I>vector</I> is then the same
+    as <i>effective-count</I>, except that if <I>effective-count</I>
+    is 0, then <I>vector</I> is <TT>nil</TT>.
+  </P>
+
+  <P>
+    In the second case, the supplied vector is filled with the bytes
+    read.  The keyword argument <I>start</I> is the start index
+    in <I>vector</I> where bytes are written.  The default
+    value is <TT>0</TT>. The keyword argument <I>end</I> is the end index
+    in <I>vector</I> where bytes are written.  The default value
+    is <TT>nil</TT> which means the end of the vector.
+    Together, <I>start</I> and <I>end</I> define the number of desired
+    bytes to read. 
+  </P>
+
+  <P>
+    In both cases, two values are returned.  The first value is the
+    vector of bytes, whether supplied or allocated.  The second value
+    is the number of bytes actually read, which may be less than the
+    desired number of bytes.
+  </P>
+
+<P><B>Errors:</B></P>
+
+  <P>If <I>file-descriptor</I> is not a valid file descriptor, or not
+    open for reading, the
+    condition <a href="invalid-file-descriptor.html">invalid-file-descriptor</a>
+    is signaled.
+    </P>
+
+</BODY>
+</HTML>
