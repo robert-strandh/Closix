@@ -1,0 +1,69 @@
+<HTML>
+<HEAD>
+</HEAD>
+<BODY>
+<HR>
+<A NAME="write"><I>Function</I> <B>WRITE</B></A>
+
+<P><B>Syntax:</B></P>
+
+<P><B>write</B> <I>file-descriptor</I> <I>vector</I>
+  <TT>&amp;key</TT>(<I>start</I> <TT>0</TT>) (<I>end</I> <TT>nil</TT>)
+  =&gt; <I>effective-count</I></P>
+
+<P><B>Arguments and values:</B></P>
+
+<P><I>file-descriptor</I> -- A non-negative integer.</P>
+
+<P><I>vector</I> -- A vector with element-type <TT>(unsigned-byte 8)</TT>.
+
+<P><I>effective-count</I> -- A non-negative integer.</P>
+
+<P><I>start</I>, <I>end</I>
+  -- <a href="http://www.lispworks.com/documentation/HyperSpec/Body/26_glo_b.htm#bounding_index_designator">Bounding 
+index designators</a> of <I>vector</I>.</P>
+
+<P><B>Description:</B></P>
+
+<P>
+  <B>write</B> writes up to count bytes from the interval
+  in <I>vector</I> designated by <I>start</I> and <I>end</I> to
+  the file referred to by <I>file-descriptor</I>.
+</P>
+
+<P>
+  The number of bytes written may be less than count if, for example,
+  there is insufficient space on the underlying physical medium, or
+  the <a href="rlimit-fsize.html">+rlimit-fsize+</a> resource limit is
+  encountered (see <a href="setrlimit.html">setrlimit</a>), or the
+  call was interrupted by a signal handler after having written less
+  than count bytes.
+</P>
+
+<P>
+  For a seekable file (i.e., one to
+  which <a href="lseek.html">lseek</a> may be applied, for example, a
+  regular file) writing takes place at the current file offset, and
+  the file offset is incremented by the number of bytes actually
+  written.  If the file was open(2)ed with O_APPEND, the file offset
+  is first set to the end of the file before writing.  The adjustment
+  of the file offset and the write operation are performed as an
+  atomic step.
+</P>
+
+<P>
+  POSIX requires that a <a href="read.html">read</a> which can be
+  proved to occur after a <B>write</B> has returned returns the new
+  data.  Note that not all file systems are POSIX conforming.
+</P>
+
+<P><B>Errors:</B></P>
+
+  <P>If <I>file-descriptor</I> is not a valid file descriptor, or not
+    open for writing, the
+    condition <a href="invalid-file-descriptor.html">invalid-file-descriptor</a>
+    is signaled.
+    </P>
+
+</BODY>
+</HTML>
