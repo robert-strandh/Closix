@@ -1,0 +1,18 @@
+<HTML>
+<HEAD>
+</HEAD>
+<BODY>
+<HR>
+<A NAME="+rlimit-nice+"><I>Constant variable</I> <B>+RLIMIT-NICE+</B></A>
+<P>
+  Specifies a ceiling to which the process's nice value can be raised
+  using <a href="setpriority.html">setpriority</a>
+  or <a href="nice..html">nice</a>.  The actual ceiling for the nice
+  value is calculated as 20 - rlim_cur.  (This strangeness occurs
+  because negative numbers cannot be specified as resource limit
+  values, since they typically have special meanings.  For example,
+  RLIM_INFINITY typically is the same as -1.)
+</P>
+
+</BODY>
+</HTML>
