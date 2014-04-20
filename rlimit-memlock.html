@@ -1,0 +1,30 @@
+<HTML>
+<HEAD>
+</HEAD>
+<BODY>
+<HR>
+<A NAME="+rlimit-memlock+"><I>Constant variable</I> <B>+RLIMIT-MEMLOCK+</B></A>
+<P>
+  The maximum number of bytes of memory that may be locked into RAM.
+  In effect this limit is rounded down to the nearest multiple of the
+  system page size.  This limit affects <a href="mlock.html">mlock</a>
+  and <a href="mlockall.html">mlockall</a> and
+  the <a href="mmap.html">mmap</a> MAP_LOCKED operation.  Since Linux
+  2.6.9 it also affects the <a href="shmctl.html">shmctl</a> SHM_LOCK
+  operation, where it sets a maximum on the total bytes in shared
+  memory segments (see <a href="shmget.html">shmget</a>) that may be
+  locked by the real user ID of the calling process.
+  The <a href="shmctl.html">shmctl</a> SHM_LOCK locks are accounted
+  for separately from the per-process memory locks established
+  by <a href="mlock.html">mlock</a>, <a href="mlockall.html">mlockall</a>,
+  and <a href="mmap.html">mmap</a> MAP_LOCKED; a process can lock
+  bytes up to this limit in each of these two categories.  In Linux
+  kernels before 2.6.9, this limit controlled the amount of memory
+  that could be locked by a privileged process.  Since Linux 2.6.9, no
+  limits are placed on the amount of memory that a privileged process
+  may lock, and this limit instead governs the amount of memory that
+  an unprivileged process may lock.
+</P>
+
+</BODY>
+</HTML>
