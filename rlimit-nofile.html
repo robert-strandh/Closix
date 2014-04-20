@@ -1,0 +1,18 @@
+<HTML>
+<HEAD>
+</HEAD>
+<BODY>
+<HR>
+<A NAME="+rlimit-nofile+"><I>Constant variable</I> <B>+RLIMIT-NOFILE+</B></A>
+<P>
+  Specifies a value one greater than the maximum file descriptor
+  number that can be opened by this process.  Attempts
+  (<a href="open.html">open</a>,
+  <a href="pipe.html">pipe</a>, <a href="dup.html">dup</a>, etc.)  to
+  exceed this limit yield the
+  error <a href="emfile.html">+emfile+</a>.  (Historically, this limit
+  was named RLIMIT_OFILE on BSD.)
+</P>
+
+</BODY>
+</HTML>
