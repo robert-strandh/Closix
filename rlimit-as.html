@@ -1,0 +1,21 @@
+<HTML>
+<HEAD>
+</HEAD>
+<BODY>
+<HR>
+<A NAME="+rlimit-as+"><I>Constant variable</I> <B>+RLIMIT-AS+</B></A>
+<P>
+  The maximum size of the process's virtual memory (address space) in
+  bytes.  This limit affects calls to 
+  <a href="brk.html">brk</a>, <a href="mmap.html">mmap</a>, and
+  <a href="mremap.html">mremap</a>, which fail with the error
+  <a href="enomem.html">+enomem+</a> upon exceeding this limit.  Also
+  automatic stack expansion will fail (and generate a SIGSEGV that
+  kills the process if no alternate stack has been made available via
+  <a href="sigaltstack.html">sigaltstack</a>).  Since the value is a
+  long, on machines with a 32-bit long either this limit is at most 2
+  GiB, or this resource is unlimited.
+</P>
+
+</BODY>
+</HTML>
