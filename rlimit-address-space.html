@@ -1,0 +1,43 @@
+<HTML>
+<HEAD>
+</HEAD>
+<BODY>
+<HR>
+<A NAME="rlimit-address-space"><I>Accessor</I> <B>RLIMIT-ADDRESS-SPACE</B></A>
+
+<P><B>Syntax:</B></P>
+
+<P><B>rlimit-address-space</B> &amp;key <I>hard</I> =&gt; <I>limit</I></P>
+
+<P><B>Arguments and values:</B></P>
+
+<P><I>hard</I> -- A generalized Boolean.</P>
+
+<P><I>limit</I> -- A non-negative integer.</P>
+
+<P><B>Description:</B></P>
+
+<P>
+  Return the maximum size of the process's virtual memory (address
+  space) in bytes.  This limit affects calls
+  to <a href="brk.html">brk</a>, <a href="mmap.html">mmap</a>
+  and <a href="mremap.html">mremap</a>, which fail with the error
+  ENOMEM upon exceeding this limit.  Also automatic stack expansion
+  will fail (and generate a SIGSEGV that kills the process if no
+  alternate stack has been made available via
+  <a href="sigaltstack.html">sigaltstack</a>).  Since the value is a
+  long, on machines with a 32-bit long either this limit is at most 2
+  GiB, or this resource is unlimited.
+</P>
+
+<P>
+  <TT>rlimit-address-space</TT> can be used with <TT>setf</TT> to set
+  the limit.
+</P>
+
+<P><B>Errors:</B></P>
+
+
+
+</BODY>
+</HTML>
