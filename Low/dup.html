@@ -26,6 +26,21 @@
   descriptor.
 </P>
 
+<P>
+  After a successful return from this system call, the old and new
+  file descriptors may be used interchangeably.  They refer to the
+  same open file description (see <a href="open.html">open</a>) and
+  thus share file offset and file status flags; for example, if the
+  file offset is modified by using <a href="lseek.html">lseek</a> on
+  one of the descriptors, the offset is also changed for the other.
+</P>
+
+<P>
+  The two descriptors do not share file descriptor flags (the
+  close-on-exec flag).  The close-on-exec flag (FD_CLOEXEC; see
+  <a href="fcntl.html">fcntl</a>) for the duplicate descriptor is off.
+</P>
+
 <H3>Errors</H3>
 
 <table border="1">
