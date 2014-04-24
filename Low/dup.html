@@ -1,0 +1,41 @@
+<HTML>
+<HEAD>
+</HEAD>
+<BODY>
+<HR>
+
+<H2><I>Function</I> DUP</H2>
+
+<H3>Syntax</H3>
+
+<P><B>dup</B> <I>file-descriptor</I> =&gt; <I>copy</I>, <I>error</I></P>
+
+<H3>Arguments and values</H3>
+
+<P><I>file-descriptor</I> -- A non-negative fixnum.</P>
+
+<P><I>copy</I> -- A non-negative fixnum.</P>
+
+<P><I>error</I> -- A fixnum. </P>
+
+<H3>Description</H3>
+
+<P>
+  This function creates and a copy of <I>file-descriptor</I>.  The
+  returned file descriptor is the lowest-numbered unused file
+  descriptor.
+</P>
+
+<H3>Errors</H3>
+
+<table border="1">
+  <tr>
+    <td><a href="ebadf.html">+ebadf+</a></td>
+    <td><I>file-descriptor</I> is not an open file descriptor,
+      or <I>copy</I> is out of the allowed range for file descriptors.
+    </td>
+  </tr>
+</table>
+
+</BODY>
+</HTML>
