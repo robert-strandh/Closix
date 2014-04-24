@@ -1,0 +1,90 @@
+<HTML>
+<HEAD>
+</HEAD>
+<BODY>
+<HR>
+
+<H2><I>Function</I> CLOSE</H2>
+
+<H3>Syntax</H3>
+
+<P><B>close</B> <I>file-descriptor</I> =&gt; <I>error</I></P>
+
+<H3>Arguments and values</H3>
+
+<P><I>file-descriptor</I> -- A non-negative fixnum.</P>
+
+<P><I>error</I> -- A fixnum.</P>
+
+<H3>Description</H3>
+
+  <P>
+    <TT>close</tt> closes a file descriptor, so that it no longer
+    refers to any file and may be reused.  Any record locks (see
+    <a href="fcntl.html">fcntl</a>) held on the file it was associated
+    with, and owned by the process, are removed (regardless of the
+    file descriptor that was used to obtain the lock).
+  </P>
+
+  <P>
+    If <I>file-descriptor</I> is the last file descriptor referring to
+    the underlying open file description
+    (see <a href="open.html">open</a>), the resources associated with
+    the open file description are freed; if the descriptor was the
+    last reference to a file which has been removed
+    using <a href="unlink.html">unlink</a> the file is deleted.
+  </P>
+
+<H3>Errors</H3>
+
+<table border="1">
+  <tr>
+    <td><a href="ebadf.html">+ebadf+</a></td>
+    <td>
+      <I>file-descriptor</I> is not a valid open file descriptor.
+    </td>
+  </tr>
+  <tr>
+    <td><a href="eintr.html">+eintr+</a></td>
+    <td>
+      The <TT>close</TT> call was interrupted by a signal; see
+      signal(7).
+    </td>
+  </tr>
+  <tr>
+    <td><a href="eio.html">+eio+</a></td>
+    <td>
+      An I/O error occurred.
+    </td>
+  </tr>
+</table>
+
+<H3>Notes</H3>
+
+<P>
+  Not checking the return value of <TT>close</TT> is a common but
+  nevertheless serious programming error.  It is quite possible that
+  errors on a previous <a href="write.html">write</a> operation are
+  first reported at the final <TT>close</TT>.  Not checking the return
+  value when closing the file may lead to silent loss of data.  This
+  can especially be observed with NFS and with disk quota.
+</P>
+
+<P>
+  A successful close does not guarantee that the data has been
+  successfully saved to disk, as the kernel defers writes.  It is not
+  common for a file system to flush the buffers when the stream is
+  closed.  If you need to be sure that the data is physically stored
+  use <a href="fsync.html">fsync</a>.  (It will depend on the disk
+  hardware at this point.)
+</P>
+
+<P>
+  It is probably unwise to close file descriptors while they may be in
+  use by system calls in other threads in the same process.  Since a
+  file descriptor may be reused, there are some obscure race
+  conditions that may cause unintended side effects.
+</P>
+
+</BODY>
+</HTML>
