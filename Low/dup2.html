@@ -40,13 +40,28 @@
 <table border="1">
   <tr>
     <td><a href="ebadf.html">+ebadf+</a></td>
-    <td><I>file-descriptor</I> is not an open file descriptor,
+    <td>
+      <I>file-descriptor</I> is not an open file descriptor,
       or <I>copy</I> is out of the allowed range for file descriptors.
+    </td>
+  </tr>
+  <tr>
+    <td><a href="ebusy.html">+ebusy+</a></td>
+    <td>
+      (Linux only) This may be returned during a race condition
+      with <a href="open.html">open</a> and <a href="dup.html">dup</a>.
     </td>
   </tr>
   <tr>
     <td><a href="eintr.html">+eintr+</a></td>
     <td>The call was interrupted by a signal.</td>
+  </tr>
+  <tr>
+    <td><a href="emfile.html">+emfile+</a></td>
+    <td>
+      The process already has the maximum number of file descriptors
+      open and tried to open a new one.
+    </td>
   </tr>
 </table>
 
