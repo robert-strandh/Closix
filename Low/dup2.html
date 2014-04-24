@@ -1,0 +1,54 @@
+<HTML>
+<HEAD>
+</HEAD>
+<BODY>
+<HR>
+
+<H2><I>Function</I> DUP2</H2>
+
+<H3>Syntax</H3>
+
+<P><B>dup2</B> <I>file-descriptor</I> <I>copy</I> =&gt; <I>error</I></P>
+
+<H3>Arguments and values</H3>
+
+<P><I>file-descriptor</I> -- A non-negative fixnum.</P>
+
+<P><I>copy</I> -- A non-negative fixnum.</P>
+
+<P><I>error</I> -- A fixnum. </P>
+
+<H3>Description</H3>
+
+<P>
+  This function makes <I>copy</I> be the copy
+  of <I>file-descriptor</I>, closing <I>copy</I> first if necessary.
+  However:
+  <UL>
+    <LI>If <I>file-descriptor</I> is not a valid file descriptor, the
+      call fails and <copy> is not closed.
+    </LI>
+    <LI>If <I>file-descriptor</I> is a valid file descriptor,
+      and <I>copy</I> has the same value as <I>file-descriptor</I>,
+      then <TT>dup2</TT> does nothing, and returns <I>copy</I>.
+    </LI>
+  </UL>
+</P>
+
+<H3>Errors</H3>
+
+<table border="1">
+  <tr>
+    <td><a href="ebadf.html">+ebadf+</a></td>
+    <td><I>file-descriptor</I> is not an open file descriptor,
+      or <I>copy</I> is out of the allowed range for file descriptors.
+    </td>
+  </tr>
+  <tr>
+    <td><a href="eintr.html">+eintr+</a></td>
+    <td>The call was interrupted by a signal.</td>
+  </tr>
+</table>
+
+</BODY>
+</HTML>
