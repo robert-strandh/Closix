@@ -36,46 +36,88 @@
 
 <H3>Errors</H3>
 
-<UL>
-  <LI>
-    <P>
-      If <I>file-descriptor</I> refers to a file other than a socket
-      and has been marked <I>nonblocking</I>, and the read would
-      block, then the value of <I>error</I> is
-      <a href="eagain.html">+eagain+</a>.
-    </P>
-  </LI>
-  <LI>
-    <P>
-      If <I>file-descriptor</I> is not a valid file descriptor, or not
-      open for reading, the value of <I>error</I> is
-      <a href="ebadf.html">+ebadf+</a>.
-    </P>
-  </LI>
-  <LI>
-    <P>
-      If the call was interrupted by a signal before any data was
-      read, then the value of <I>error</I> is
-      <a href="eintr.html">+eintr+</a>.
-    </P>
-  </LI>
-  <LI>
-    <P>
-      If <I>file-descriptor</I> is attached to an object which is
-      unsuitable for reading; or the file was opened with the
-      <a href="+o-direct+.html">+o-direct+</a> flag, and either the
-      value specified in by <I>end - start</I>, or the current file
-      offset is not suitably aligned, then the value of <I>error</I>
-      is
-      <a href="einval.html">+einval+</a>.
-    </P>
-  </LI>
-  <LI>
-    <P>
-      FIXME: more here...
-    </P>
-  </LI>
-</UL>
+<table border="1">
+  <tr>
+    <td><a href="eagain.html">+eagain+</a></td>
+    <td>
+      <I>file-descriptor</I> refers to a file other than a socket and
+      has been marked nonblocking
+      (<a href="o-nonblock.html">+o-nonblock+</a>), and the read would
+      block.
+    </td>
+  </tr>
+  <tr>
+    <td><a href="eagain.html">+eagain+</a>
+      or <a href="ewouldblock.html">+ewouldblock+</a>
+    </td>
+    <td>
+      <I>file-descriptor</I> refers to a socket and has been marked
+      nonblocking (<a href="o-nonblock.html">+o-nonblock+</a>), and
+      the read would block.  POSIX.1-2001 allows either error to be
+      returned for this case, and does not require these constants to
+      have the same value, so a portable application should check for
+      both possibilities.
+    </td>
+  </tr>
+  <tr>
+    <td><a href="ebadf.html">+ebadf+</a></td>
+    <td>
+      <I>file-descriptor</I> is not a valid file descriptor or is not
+      open for reading.
+    </td>
+  </tr>
+  <tr>
+    <td><a href="eintr.html">+eintr+</a></td>
+    <td>
+      The call was interrupted by a signal before any data was read;
+      see signal(7).
+    </td>
+  </tr>
+  <tr>
+    <td><a href="einval.html">+einval+</a></td>
+    <td>
+      <I>file-descriptor</I> is attached to an object which is
+      unsuitable for reading; or the file was opened with
+      the <a href="o-direct.html">+o-direct+</a> flag, and either the
+      address specified in buf, the value specified in count, or the
+      current file offset is not suitably aligned.
+    </td>
+  </tr>
+  <tr>
+    <td><a href="einval.html">+einval+</a></td>
+    <td>
+      <I>file-descriptor</I> was created via a call to
+      <a href="timerfd-create.html">timerfd-create</a> and the wrong
+      size buffer was given to <tt>read</tt>;
+      see <a href="timerfd-create.html">timerfd-create</a> for further
+      information.
+    </td>
+  </tr>
+  <tr>
+    <td><a href="eio.html">+eio+</a></td>
+    <td>
+      I/O error.  This will happen for example when the process is in
+      a background process group, tries to read from its controlling
+      tty, and either it is ignoring or blocking SIGTTIN or its
+      process group is orphaned.  It may also occur when there is a
+      low-level I/O error while reading from a disk or tape.
+    </td>
+  </tr>
+  <tr>
+    <td><a href="eisdir.html">+eisdir+</a></td>
+    <td>
+      <I>file-descriptor</I> refers to a directory.
+    </td>
+  </tr>
+</table>
+
+<P>
+  Other errors may occur, depending on the object connected
+  to <I>file-descriptor</I>.  POSIX allows a <tt>read</tt> that is
+  interrupted after reading some data to return -1 (with errno set to
+  <a href="eintr.html">+eintr+</a>) or to return the number of bytes
+  already read.
+</P>
 
 </BODY>
 </HTML>
