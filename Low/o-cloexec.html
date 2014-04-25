@@ -1,0 +1,21 @@
+<HTML>
+<HEAD>
+</HEAD>
+<BODY>
+<HR>
+<A NAME="+o-cloexec+"><I>Constant variable</I> <B>+O-CLOEXEC+</B></A>
+<P>
+  (Since Linux 2.6.23) Enable the close-on-exec flag for the new file
+  descriptor.  Specifying this flag permits a program to avoid
+  additional <a href="fcntl.html">fcntl</a> F_SETFD operations to set
+  the FD_CLOEXEC flag.  Additionally, use of this flag is essential in
+  some multithreaded programs since using a
+  separate <a href="fcntl.html">fcntl</a> F_SETFD operation to set the
+  FD_CLOEXEC flag does not suffice to avoid race conditions where one
+  thread opens a file descriptor at the same time as another thread
+  does a <a href="fork.html">fork</a>
+  plus <a href="execve.html">execve</a>.
+</P>
+
+</BODY>
+</HTML>
