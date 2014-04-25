@@ -1,0 +1,26 @@
+<HTML>
+<HEAD>
+</HEAD>
+<BODY>
+<HR>
+<A NAME="+o-direct+"><I>Constant variable</I> <B>+O-DIRECT+</B></A>
+<P>
+  (Since Linux 2.4.10) Try to minimize cache effects of the I/O to and
+  from this file.  In general this will degrade performance, but it is
+  useful in special situations, such as when applications do their own
+  caching.  File I/O is done directly to/from user space buffers.  The
+  <tt>+o-direct+</tt> flag on its own makes an effort to transfer data
+  synchronously, but does not give the guarantees of
+  the <a href="o-sync.html">+o-sync+</a> flag that data and necessary
+  metadata are transferred.  To guarantee synchronous
+  I/O, <a href="o-sync.html">+o-sync+</a> must be used in addition
+  to <tt>+o-direct+</tt>.  See NOTES below for further discussion.
+</P>
+
+<P>
+  A semantically similar (but deprecated) interface for block devices
+  is described in raw(8).
+</P>
+
+</BODY>
+</HTML>
