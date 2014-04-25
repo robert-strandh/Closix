@@ -1,0 +1,46 @@
+<HTML>
+<HEAD>
+</HEAD>
+<BODY>
+<HR>
+<A NAME="+o-excl+"><I>Constant variable</I> <B>+O-EXCL+</B></A>
+<P>
+  Ensure that this call creates the file: if this flag is specified in
+  conjunction with <a href="o-creat.html">+o-creat+</a>, and pathname
+  already exists, then <a href="open.html">open</a> will fail.
+</P>
+
+<P>
+  When these two flags are specified, symbolic links are not followed:
+  if pathname is a symbolic link, then <a href="open.html">open</a>
+  fails regardless of where the symbolic link points to.
+</P>
+
+<P>
+  In general, the behavior of <tt>+o-excl+</tt> is undefined if it is
+  used without <a href="o-creat.html">+o-creat+</a>.  There is one
+  exception: on Linux 2.6 and later, <tt>+o-excl+</tt> can be used
+  without <a href="o-creat.html">+o-creat+</a> if pathname refers to a
+  block device.  If the block device is in use by the system (e.g.,
+  mounted), <a href="open.html">open</a> fails with the
+  error <a href="ebusy.html">+ebusy+</a>.
+</P>
+
+<P>
+  On NFS, <tt>+o-excl+</tt> is only supported when using NFSv3 or
+  later on kernel 2.6 or later.  In NFS environments
+  where <tt>+o-excl+</tt> support is not provided, programs that rely
+  on it for performing locking tasks will contain a race condition.
+  Portable programs that want to perform atomic file locking using a
+  lockfile, and need to avoid reliance on NFS support
+  for <tt>+o-excl+</tt>, can create a unique file on the same file
+  system (e.g., incorporating hostname and PID), and
+  use <a href="link.html">link</a> to make a link to the lockfile.
+  If <a href="link.html">link</a> returns 0, the lock is successful.
+  Otherwise, use <a href="stat.html">stat</a> on the unique file to
+  check if its link count has increased to 2, in which case the lock
+  is also successful.
+</P>
+
+</BODY>
+</HTML>
