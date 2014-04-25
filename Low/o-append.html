@@ -1,0 +1,21 @@
+<HTML>
+<HEAD>
+</HEAD>
+<BODY>
+<HR>
+<A NAME="+o-append+"><I>Constant variable</I> <B>+O-APPEND+</B></A>
+<P>
+  The file is opened in append mode.  Before
+  each <a href="write.html">write</a>, the file offset is positioned
+  at the end of the file, as if with <a href="lseek.html">lseek</a>.
+  <tt>+o-append+</tt> may lead to corrupted files on NFS file systems
+  if more than one process appends data to a file at once.  This is
+  because NFS does not support appending to a file, so the client
+  kernel has to simulate it, which can't be done without a race
+  condition.
+</P>
+
+</BODY>
+</HTML>
+
+
