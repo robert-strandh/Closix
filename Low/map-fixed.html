@@ -1,0 +1,18 @@
+<HTML>
+<HEAD>
+</HEAD>
+<BODY>
+<HR>
+<A NAME="+map-fixed+"><I>Constant variable</I> <B>+MAP-FIXED+</B></A>
+<P>
+  Do not interpret addr as a hint: place the mapping at exactly that
+  address.  addr must be a multiple of the page size.  If the memory
+  region specified by addr and len overlaps pages of any existing
+  mapping(s), then the overlapped part of the existing mapping(s) will
+  be discarded.  If the specified address cannot be used, mmap() will
+  fail.  Because requiring a fixed address for a mapping is less
+  portable, the use of this option is discouraged.
+</P>
+
+</BODY>
+</HTML>
