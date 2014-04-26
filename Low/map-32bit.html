@@ -1,0 +1,20 @@
+<HTML>
+<HEAD>
+</HEAD>
+<BODY>
+<HR>
+<A NAME="+map-32bit+"><I>Constant variable</I> <B>+MAP-32BIT+</B></A>
+<P>
+  (since Linux 2.4.20, 2.6) Put the mapping into the first 2 Gigabytes
+  of the process address space.  This flag is only supported on
+  x86-64, for 64-bit programs.  It was added to allow thread stacks to
+  be allocated somewhere in the first 2GB of memory, so as to improve
+  context-switch performance on some early 64-bit processors. Modern
+  x86-64 processors no longer have this performance problem, so use of
+  this flag is not required on those systems.
+  The <tt>+map-32bit+</tt> flag is ignored
+  when <a href="map-fixed.html">+map-fixed+</a> is set.
+</P>
+
+</BODY>
+</HTML>
