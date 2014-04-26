@@ -1,0 +1,17 @@
+<HTML>
+<HEAD>
+</HEAD>
+<BODY>
+<HR>
+<A NAME="+map-noreserve+"><I>Constant variable</I> <B>+MAP-NORESERVE+</B></A>
+<P>
+  Do not reserve swap space for this mapping.  When swap space is
+  reserved, one has the guarantee that it is possible to modify the
+  mapping.  When swap space is not reserved one might get SIGSEGV upon
+  a write if no physical memory is available.  See also the discussion
+  of the file /proc/sys/vm/overcommit_memory in proc(5).  In kernels
+  before 2.6, this flag only had effect for private writable mappings.
+</P>
+
+</BODY>
+</HTML>
