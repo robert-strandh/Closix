@@ -138,12 +138,14 @@
       </P>
       <P>
         mode specifies the permissions to use in case a new file is
-        created.  This argument must be supplied when O_CREAT is
-        specified in flags; if O_CREAT is not specified, then mode is
-        ignored.  The effective permissions are modified by the
-        process's umask in the usual way: The permissions of the
-        created file are (mode & ~umask).  Note that this mode only
-        applies to future accesses of the newly created file; the
+        created.  This argument must be supplied
+        when <a href="o-creat.html">+o-creat+</a> is specified in
+        flags; if <a href="o-creat.html">+o-creat+</a> is not
+        specified, then mode is ignored.  The effective permissions
+        are modified by the process's umask in the usual way: The
+        permissions of the created file are (mode & ~umask).  Note
+        that this mode only applies to future accesses of the newly
+        created file; the
         <tt>open</tt> call that creates a read-only file may well return a
         read/write file descriptor.
       </P>
@@ -427,7 +429,8 @@
   <tr>
     <td><a href="eexist.html">+eexist+</a></td>
     <td>
-      pathname already exists and O_CREAT and O_EXCL were used.
+      pathname already exists and <a href="o-creat.html">+o-creat+</a>
+      and <a href="o-excl.html">+o-excl+</a> were used.
     </td>
   </tr>
   <tr>
@@ -454,7 +457,8 @@
     <td><a href="eisdir.html">+eisdir+</a></td>
     <td>
       pathname refers to a directory and the access requested involved
-      writing (that is, O_WRONLY or O_RDWR is set).
+      writing (that is, <a href="o-wronly.html">+o-wronly+</a> or 
+      <a href="o-ordwr.html">+o-ordwr+</a> is set).
     </td>
   </tr>
   <tr>
