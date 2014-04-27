@@ -415,12 +415,164 @@
 
 <table border="1">
   <tr>
-    <td><a href="eagain.html">+eagain+</a></td>
+    <td><a href="eacces.html">+eacces+</a></td>
     <td>
+      The requested access to the file is not allowed, or search
+      permission is denied for one of the directories in the path
+      prefix of pathname, or the file did not exist yet and write
+      access to the parent directory is not allowed.  (See also
+      path_resolution(7).)
+    </td>
+  </tr>
+  <tr>
+    <td><a href="eexist.html">+eexist+</a></td>
+    <td>
+      pathname already exists and O_CREAT and O_EXCL were used.
+    </td>
+  </tr>
+  <tr>
+    <td><a href="efault.html">+efault+</a></td>
+    <td>
+      pathname points outside your accessible address space.
+   </td>
+  </tr>
+  <tr>
+    <td><a href="efbig.html">+efbig+</a></td>
+    <td>
+      See <a href="eoverflow.html">+eoverflow+</a>.
+    </td>
+  </tr>
+  <tr>
+    <td><a href="eintr.html">+eintr+</a></td>
+    <td>
+      While blocked waiting to complete an open of a slow device
+      (e.g., a FIFO; see fifo(7)), the call was interrupted by a
+      signal handler; see signal(7).
+    </td>
+  </tr>
+  <tr>
+    <td><a href="eisdir.html">+eisdir+</a></td>
+    <td>
+      pathname refers to a directory and the access requested involved
+      writing (that is, O_WRONLY or O_RDWR is set).
+    </td>
+  </tr>
+  <tr>
+    <td><a href="eloop.html">+eloop+</a></td>
+    <td>
+      Too many symbolic links were encountered in resolving pathname,
+      or <a href="o-nofollow.html">+o-nofollow+</a> was specified but
+      pathname was a symbolic link.
+    </td>
+  </tr>
+  <tr>
+    <td><a href="emfile.html">+emfile+</a></td>
+    <td>
+      The process already has the maximum number of files open.
+    </td>
+  </tr>
+  <tr>
+    <td><a href="enametoolong.html">+enametoolong+</a></td>
+    <td>
+      pathname was too long.
+    </td>
+  </tr>
+  <tr>
+    <td><a href="enfile.html">+enfile+</a></td>
+    <td>
+      The system limit on the total number of open files has been
+      reached.
+    </td>
+  </tr>
+  <tr>
+    <td><a href="enodev.html">+enodev+</a></td>
+    <td>
+      pathname refers to a device special file and no corresponding
+      device exists.  (This is a Linux kernel bug; in this situation
+      ENXIO must be returned.)
+    </td>
+  </tr>
+  <tr>
+    <td><a href="enoent.html">+enoent+</a></td>
+    <td>
+      <a href="o-creat.html">+o-creat+</a> is not set and the named
+      file does not exist.  Or, a directory component in pathname does
+      not exist or is a dangling symbolic link.
+    </td>
+  </tr>
+  <tr>
+    <td><a href="enomem.html">+enomem+</a></td>
+    <td>
+      Insufficient kernel memory was available.
+    </td>
+  </tr>
+  <tr>
+    <td><a href="enospc.html">+enospc+</a></td>
+    <td>
+      pathname was to be created but the device containing pathname
+      has no room for the new file.
+    </td>
+  </tr>
+  <tr>
+    <td><a href="enotdir.html">+enotdir+</a></td>
+    <td>
+      A component used as a directory in pathname is not, in fact, a
+      directory, or <a href="o-directory.html">+o-directory+</a> was
+      specified and pathname was not a directory.
+    </td>
+  </tr>
+  <tr>
+    <td><a href="enxio.html">+enxio+</a></td>
+    <td>
+      <a href="o-nonblock.html">+o-nonblock+</a> or
+      <a href="o-wronly.html">+o-wronly+</a> is set, the named file is
+      a FIFO and no process has the file open for reading.  Or, the
+      file is a device special file and no corresponding device
+      exists.
+    </td>
+  </tr>
+  <tr>
+    <td><a href="eoverflow.html">+eoverflow+</a></td>
+    <td>
+      pathname refers to a regular file that is too large to be
+      opened.  The usual scenario here is that an application compiled
+      on a 32-bit platform without -D_FILE_OFFSET_BITS=64 tried to
+      open a file whose size exceeds (2&lt;&lt;31)-1 bits; see also
+      <a href="o-largefile.html">+o-largefile+</a> above.  This is the
+      error specified by POSIX.1-2001; in kernels before 2.6.24, Linux
+      gave the error <a href="efbig.html">+efbig+</a> for this case.
+    </td>
+  </tr>
+  <tr>
+    <td><a href="eperm.html">+eperm+</a></td>
+    <td>
+      The <a href="o-noatime.html">+o-noatime+</a> flag was specified,
+      but the effective user ID of the caller did not match the owner
+      of the file and the caller was not privileged (CAP_FOWNER).
+    </td>
+  </tr>
+  <tr>
+    <td><a href="erofs.html">+erofs+</a></td>
+    <td>
+      pathname refers to a file on a read-only file system and write
+      access was requested.
+    </td>
+  </tr>
+  <tr>
+    <td><a href="etxtbsy.html">+etxtbsy+</a></td>
+    <td>
+      pathname refers to an executable image which is currently being
+      executed and write access was requested.
+    </td>
+  </tr>
+  <tr>
+    <td><a href="ewouldblock.html">+ewouldblock+</a></td>
+    <td>
+      The <a href="o-nonblock.html">+o-nonblock+</a> flag was specified,
+      and an incompatible lease was held on the file
+      (see <a href="fcntl.html">fcntl</a>).
     </td>
   </tr>
 </table>
-
-
 </BODY>
 </HTML>
