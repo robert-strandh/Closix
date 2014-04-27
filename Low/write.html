@@ -33,10 +33,11 @@
   </P>
 
   <P>
-    The number of bytes written may be less than count if, for
-    example, there is insufficient space on the underlying physical
-    medium, or the <a href="rlimit-fsize.html">+rlimit-fsize+</a>
-    resource limit is encountered (see
+    The number of bytes written may be less than <I>end</I>
+    - <I>start</I> if, for example, there is insufficient space on the
+    underlying physical medium, or
+    the <a href="rlimit-fsize.html">+rlimit-fsize+</a> resource limit
+    is encountered (see
     <a href="low-setrlimit.html">setrlimit</a>), or the call was
     interrupted by a signal handler after having written less than
     count bytes.
