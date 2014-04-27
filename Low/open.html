@@ -27,46 +27,53 @@
 
 
 <P>
-  Given a pathname for a file, open() returns a file descriptor, a
+  Given a pathname for a file, <tt>open</tt> returns a file descriptor, a
   small, nonnegative integer for use in subsequent system calls
-  (read(2), write(2), lseek(2), fcntl(2), etc.).  The file descriptor
-  returned by a successful call will be the lowest-numbered file
-  descriptor not currently open for the process.
+  (<a href="read.html">read</a>, <a href="write.html">write</a>, <a href="lseek.html">lseek</a>,
+  <a href="fcntl.html">fcntl</a>, etc.).  The file descriptor returned
+  by a successful call will be the lowest-numbered file descriptor not
+  currently open for the process.
 </P>
 
 <P>
   By default, the new file descriptor is set to remain open across an
-  execve(2) (i.e., the FD_CLOEXEC file descriptor flag described in
-  fcntl(2) is initially disabled; the O_CLOEXEC flag, described below,
+  <a href="execve.html">execve</a> (i.e., the FD_CLOEXEC file descriptor flag described in
+  <a href="fcntl.html">fcntl</a> is initially disabled;
+  the <a href="o-cloexec.html">+o-cloexec+</a> flag, described below,
   can be used to change this default).  The file offset is set to the
-  beginning of the file (see lseek(2)).
+  beginning of the file (see <a href="lseek.html">lseek</a>).
 </P>
 
 <P>
-  A call to open() creates a new open file description, an entry in
+  A call to <tt>open</tt> creates a new open file description, an entry in
   the system-wide table of open files.  This entry records the file
-  offset and the file status flags (modifiable via the fcntl(2)
+  offset and the file status flags (modifiable via the <a href="fcntl.html">fcntl</a>
   F_SETFL operation).  A file descriptor is a reference to one of
   these entries; this reference is unaffected if pathname is
   subsequently removed or modified to refer to a different file.  The
   new open file description is initially not shared with any other
-  process, but sharing may arise via fork(2).
+  process, but sharing may arise via <a href="fork.html">fork</a>.
 </P>
 
 <P>
   The argument flags must include one of the following access modes:
-  O_RDONLY, O_WRONLY, or O_RDWR.  These request opening the file
+  <a href="o-rdonly.html">+o-rdonly+</a>, 
+  <a href="o-wronly.html">+o-wronly+</a>, or
+  <a href="o-rdwr.html">+o-rdwr+</a>.  These request opening the file
   read-only, write-only, or read/write, respectively.
 </P>
 
 <P>
   In  addition,  zero  or  more file creation flags and file status
   flags can be bitwise-or'd in flags.  The file creation flags are
-  O_CREAT, O_EXCL, O_NOCTTY, and O_TRUNC.  The file status flags are
-  all of the remaining flags listed below.  The distinction between
-  these two groups of flags is that the file status flags can be
-  retrieved and (in some cases) modified using fcntl(2).  The full
-  list of file creation flags and file status flags is as follows: 
+  <a href="o-creat.html">+o-creat+</a>, 
+  <a href="o-excl.html">+o-excl+</a>, 
+  <a href="o-noctty.html">+o-noctty+</a>, and
+  <a href="o-trunc.html">+o-trunc+</a>.  The file status flags are all
+  of the remaining flags listed below.  The distinction between these
+  two groups of flags is that the file status flags can be retrieved
+  and (in some cases) modified using <a href="fcntl.html">fcntl</a>.  The full list of file
+  creation flags and file status flags is as follows:
 </P>
 
 <table border="1">
@@ -137,7 +144,7 @@
         process's umask in the usual way: The permissions of the
         created file are (mode & ~umask).  Note that this mode only
         applies to future accesses of the newly created file; the
-        open() call that creates a read-only file may well return a
+        <tt>open</tt> call that creates a read-only file may well return a
         read/write file descriptor.
       </P>
 
