@@ -1,0 +1,419 @@
+<HTML>
+<HEAD>
+</HEAD>
+<BODY>
+<HR>
+
+<H2><I>Function</I> OPEN</H2>
+
+<H3>Syntax</H3>
+
+<P><B>open</B> <I>pathname</I> <I>flags</I> &amp;optional <I>mode</I>
+  =&gt; <I>file-descriptor</I>, <I>error</I></P>
+
+<H3>Arguments and values</H3>
+
+<P><I>pathname</I> -- A string. </P>
+
+<P><I>flags</I> -- A non-negative fixnum.</P>
+
+<P><I>mode</I> -- A non-negative fixnum.</P>
+
+<P><I>file-descriptor</I> -- A non-negative fixnum.</P>
+
+<P><I>error</I> -- A fixnum. </P>
+
+<H3>Description</H3>
+
+
+<P>
+  Given a pathname for a file, open() returns a file descriptor, a
+  small, nonnegative integer for use in subsequent system calls
+  (read(2), write(2), lseek(2), fcntl(2), etc.).  The file descriptor
+  returned by a successful call will be the lowest-numbered file
+  descriptor not currently open for the process.
+</P>
+
+<P>
+  By default, the new file descriptor is set to remain open across an
+  execve(2) (i.e., the FD_CLOEXEC file descriptor flag described in
+  fcntl(2) is initially disabled; the O_CLOEXEC flag, described below,
+  can be used to change this default).  The file offset is set to the
+  beginning of the file (see lseek(2)).
+</P>
+
+<P>
+  A call to open() creates a new open file description, an entry in
+  the system-wide table of open files.  This entry records the file
+  offset and the file status flags (modifiable via the fcntl(2)
+  F_SETFL operation).  A file descriptor is a reference to one of
+  these entries; this reference is unaffected if pathname is
+  subsequently removed or modified to refer to a different file.  The
+  new open file description is initially not shared with any other
+  process, but sharing may arise via fork(2).
+</P>
+
+<P>
+  The argument flags must include one of the following access modes:
+  O_RDONLY, O_WRONLY, or O_RDWR.  These request opening the file
+  read-only, write-only, or read/write, respectively.
+</P>
+
+<P>
+  In  addition,  zero  or  more file creation flags and file status
+  flags can be bitwise-or'd in flags.  The file creation flags are
+  O_CREAT, O_EXCL, O_NOCTTY, and O_TRUNC.  The file status flags are
+  all of the remaining flags listed below.  The distinction between
+  these two groups of flags is that the file status flags can be
+  retrieved and (in some cases) modified using fcntl(2).  The full
+  list of file creation flags and file status flags is as follows: 
+</P>
+
+<table border="1">
+  <tr>
+    <td><a href="o-append.html">+o-append+</a></td>
+    <td>
+      <P>
+	The file is opened in append mode.  Before
+	each <a href="write.html">write</a>, the file offset is
+	positioned at the end of the file, as if
+	with <a href="lseek.html">lseek</a>.
+	<tt>+o-append+</tt> may lead to corrupted files on NFS file
+	systems if more than one process appends data to a file at
+	once.  This is because NFS does not support appending to a
+	file, so the client kernel has to simulate it, which can't be
+	done without a race condition.
+      </P>
+    </td>
+  </tr>
+  <tr>
+    <td><a href="o-async.html">+o-async+</a></td>
+    <td>
+      <P>
+	Enable signal-driven I/O: generate a signal (SIGIO by default,
+	but this can be changed via <a href="fcntl.html">fcntl</a>)
+	when input or output becomes possible on this file descriptor.
+	This feature is only available for terminals, pseudoterminals,
+	sockets, and (since Linux 2.6) pipes and FIFOs.
+	See <a href="fcntl.html">fcntl</a> for further details.
+      </P>
+    </td>
+  </tr>
+  <tr>
+    <td><a href="o-cloexec.html">+o-cloexec+</a></td>
+    <td>
+      <P>
+	(Since Linux 2.6.23) Enable the close-on-exec flag for the new
+	file descriptor.  Specifying this flag permits a program to
+	avoid additional <a href="fcntl.html">fcntl</a> F_SETFD
+	operations to set the FD_CLOEXEC flag.  Additionally, use of
+	this flag is essential in some multithreaded programs since
+	using a separate <a href="fcntl.html">fcntl</a> F_SETFD
+	operation to set the FD_CLOEXEC flag does not suffice to avoid
+	race conditions where one thread opens a file descriptor at
+	the same time as another thread does
+	a <a href="fork.html">fork</a>
+	plus <a href="execve.html">execve</a>.
+      </P>
+    </td>
+  </tr>
+  <tr>
+    <td><a href="o-creat.html">+o-creat+</a></td>
+    <td>
+      <P>
+	If the file does not exist it will be created.  The owner (user ID)
+	of the file is set to the effective user ID of the process.  The
+	group ownership (group ID) is set either to the effective group ID
+	of the process or to the group ID of the parent directory (depending
+	on file system type and mount options, and the mode of the parent
+	directory, see the mount options bsdgroups and sysvgroups described
+	in mount(8)).
+      </P>
+      <P>
+        mode specifies the permissions to use in case a new file is
+        created.  This argument must be supplied when O_CREAT is
+        specified in flags; if O_CREAT is not specified, then mode is
+        ignored.  The effective permissions are modified by the
+        process's umask in the usual way: The permissions of the
+        created file are (mode & ~umask).  Note that this mode only
+        applies to future accesses of the newly created file; the
+        open() call that creates a read-only file may well return a
+        read/write file descriptor.
+      </P>
+
+      <P>
+        The following symbolic constants are provided for mode:
+      </P>
+      <table>
+	<tr>
+	  <td><a href="s-irxwu.html">+s-s-irxwu+</a></td>
+	  <td>00700</td>
+	  <td>
+	    user (file owner) has read, write and execute permission
+	  </td>
+	</tr>
+	<tr>
+	  <td><a href="s-irusr.html">+s-s-irusr+</a></td>
+	  <td>00400</td>
+	  <td>
+	    user has read permission
+	  </td>
+	</tr>
+	<tr>
+	  <td><a href="s-iwusr.html">+s-s-iwusr+</a></td>
+	  <td>00200</td>
+	  <td>
+	    user has write permission
+	  </td>
+	</tr>
+	<tr>
+	  <td><a href="s-ixusr.html">+s-s-ixusr+</a></td>
+	  <td>00100</td>
+	  <td>
+	    user has execute permission
+	  </td>
+	</tr>
+	<tr>
+	  <td><a href="s-irwxg.html">+s-s-irwxg+</a></td>
+	  <td>00070</td>
+	  <td>
+	    group has read, write and execute permission
+	  </td>
+	</tr>
+	<tr>
+	  <td><a href="s-irgrp.html">+s-s-irgrp+</a></td>
+	  <td>00040</td>
+	  <td>
+	    group has read permission
+	  </td>
+	</tr>
+	<tr>
+	  <td><a href="s-iwgrp.html">+s-s-iwgrp+</a></td>
+	  <td>00020</td>
+	  <td>
+	    group has write permission
+	  </td>
+	</tr>
+	<tr>
+	  <td><a href="s-ixgrp.html">+s-s-ixgrp+</a></td>
+	  <td>00010</td>
+	  <td>
+	    group has execute permission
+	  </td>
+	</tr>
+	<tr>
+	  <td><a href="s-irwxo.html">+s-s-irwxo+</a></td>
+	  <td>00007</td>
+	  <td>
+	    others have read, write and execute permission
+	  </td>
+	</tr>
+	<tr>
+	  <td><a href="s-iroth.html">+s-s-iroth+</a></td>
+	  <td>00004</td>
+	  <td>
+	    others have read permission
+	  </td>
+	</tr>
+	<tr>
+	  <td><a href="s-iwoth.html">+s-s-iwoth+</a></td>
+	  <td>00002</td>
+	  <td>
+	    others have write permission
+	  </td>
+	</tr>
+	<tr>
+	  <td><a href="s-ixoth.html">+s-s-ixoth+</a></td>
+	  <td>00001</td>
+	  <td>
+	    others have execute permission
+	  </td>
+	</tr>
+      </table>
+    </td>
+  </tr>
+  <tr>
+    <td><a href="o-direct.html">+o-direct+</a></td>
+    <td>
+      <P>
+	(Since Linux 2.4.10) Try to minimize cache effects of the I/O to and
+	from this file.  In general this will degrade performance, but it is
+	useful in special situations, such as when applications do their own
+	caching.  File I/O is done directly to/from user space buffers.  The
+	<tt>+o-direct+</tt> flag on its own makes an effort to
+	transfer data synchronously, but does not give the guarantees
+	of the <a href="o-sync.html">+o-sync+</a> flag that data and
+	necessary metadata are transferred.  To guarantee synchronous
+	I/O, <a href="o-sync.html">+o-sync+</a> must be used in
+	addition to <tt>+o-direct+</tt>.  See NOTES below for further
+	discussion.
+      </P>
+
+      <P>
+	A semantically similar (but deprecated) interface for block
+	devices is described in raw(8).
+      </P>
+    </td>
+  </tr>
+  <tr>
+    <td><a href="o-directory.html">+o-directory+</a></td>
+    <td>
+      <P>
+	If pathname is not a directory, cause the open to fail.  This
+	flag is Linux-specific, and was added in kernel version
+	2.1.126, to avoid denial-of-service problems if opendir(3) is
+	called on a FIFO or tape device, but should not be used
+	outside of the implementation of opendir(3).
+      </P>
+    </td>
+  </tr>
+  <tr>
+    <td><a href="o-excl.html">+o-excl+</a></td>
+    <td>
+      <P>
+	Ensure that this call creates the file: if this flag is
+	specified in conjunction
+	with <a href="o-creat.html">+o-creat+</a>, and pathname
+	already exists, then <a href="open.html">open</a> will fail.
+      </P>
+
+      <P>
+	When these two flags are specified, symbolic links are not
+	followed: if pathname is a symbolic link,
+	then <a href="open.html">open</a> fails regardless of where
+	the symbolic link points to.
+      </P>
+
+      <P>
+	In general, the behavior of <tt>+o-excl+</tt> is undefined if
+	it is used without <a href="o-creat.html">+o-creat+</a>.
+	There is one exception: on Linux 2.6 and
+	later, <tt>+o-excl+</tt> can be used
+	without <a href="o-creat.html">+o-creat+</a> if pathname
+	refers to a block device.  If the block device is in use by
+	the system (e.g., mounted), <a href="open.html">open</a> fails
+	with the error <a href="ebusy.html">+ebusy+</a>.
+      </P>
+
+      <P>
+	On NFS, <tt>+o-excl+</tt> is only supported when using NFSv3
+	or later on kernel 2.6 or later.  In NFS environments
+	where <tt>+o-excl+</tt> support is not provided, programs that
+	rely on it for performing locking tasks will contain a race
+	condition.  Portable programs that want to perform atomic file
+	locking using a lockfile, and need to avoid reliance on NFS
+	support for <tt>+o-excl+</tt>, can create a unique file on the
+	same file system (e.g., incorporating hostname and PID), and
+	use <a href="link.html">link</a> to make a link to the
+	lockfile.  If <a href="link.html">link</a> returns 0, the lock
+	is successful.  Otherwise, use <a href="stat.html">stat</a> on
+	the unique file to check if its link count has increased to 2,
+	in which case the lock is also successful.
+      </P>
+    </td>
+  </tr>
+  <tr>
+    <td><a href="o-largefile.html">+o-largefile+</a></td>
+    <td>
+      <P>
+	(LFS) Allow files whose sizes cannot be represented in an off_t (but
+	can be represented in an off64_t) to be opened.  The
+	_LARGEFILE64_SOURCE macro must be defined (before including any
+	header files) in order to obtain this definition.  Setting the
+	_FILE_OFFSET_BITS feature test macro to 64 (rather than using
+	<tt>+o-largefile+</tt>) is the preferred method of accessing
+	large files on 32-bit systems (see feature_test_macros(7)).
+      </P>
+    </td>
+  </tr>
+  <tr>
+    <td><a href="o-noatime.html">+o-noatime+</a></td>
+    <td>
+      <P>
+	(Since Linux 2.6.8) Do not update the file last access time
+	(st_atime in the inode) when the file
+	is <a href="read.html">read</a>.  This flag is intended for
+	use by indexing or backup programs, where its use can
+	significantly reduce the amount of disk activity.  This flag
+	may not be effective on all file systems.  One example is NFS,
+	where the server maintains the access time.
+      </P>
+    </td>
+  </tr>
+  <tr>
+    <td><a href="o-noctty.html">+o-noctty+</a></td>
+    <td>
+      <P>
+	If pathname refers to a terminal device — see tty(4) — it will not
+	become the process's controlling terminal even if the process does
+	not have one.
+      </P>
+    </td>
+  </tr>
+  <tr>
+    <td><a href="o-nofollow.html">+o-nofollow+</a></td>
+    <td>
+      <P>
+	If pathname is a symbolic link, then the open fails.  This is
+	a FreeBSD extension, which was added to Linux in version
+	2.1.126.  Symbolic links in earlier components of the pathname
+	will still be followed.
+      </P>
+    </td>
+  </tr>
+  <tr>
+    <td><a href="o-nonblock.html">+o-nonblock+</a> or
+      <a href="o-ndelay.html">+o-ndelay+</a></td>
+    <td>
+      <P>
+	When possible, the file is opened in nonblocking mode.  Neither the
+	<a href="open.html">open</a> nor any subsequent operations on
+	the file descriptor which is returned will cause the calling
+	process to wait.  For the handling of FIFOs (named pipes), see
+	also fifo(7).  For a discussion of the effect
+	of <tt>+o-nonblock+</tt> in conjunction with mandatory file
+	locks and with file leases,
+	see <a href="fcntl.html">fcntl</a>.
+      </P>
+    </td>
+  </tr>
+  <tr>
+    <td><a href="o-sync.html">+o-sync+</a></td>
+    <td>
+      <P>
+	The file is opened for synchronous I/O.
+	Any <a href="write.html">write</a>s on the resulting file
+	descriptor will block the calling process until the data has
+	been physically written to the underlying hardware.
+      </P>
+    </td>
+  </tr>
+  <tr>
+    <td><a href="o-trunc.html">+o-trunc+</a></td>
+    <td>
+      <P>
+	If the file already exists and is a regular file and the open mode
+	allows writing (i.e., is <a href="o-rdwr.html">+o-rdwr+</a> or
+	<a href="o-wronly.html">+o-wronly+</a>) it will be truncated to
+	length 0.  If the file is a FIFO or terminal device file, the
+	<tt>+o-trunc+</tt> flag is ignored.  Otherwise the effect
+	of <tt>+o-trunc+</tt> is unspecified.
+      </P>
+    </td>
+  </tr>
+</table>
+
+
+<H3>Errors</H3>
+
+<table border="1">
+  <tr>
+    <td><a href="eagain.html">+eagain+</a></td>
+    <td>
+    </td>
+  </tr>
+</table>
+
+
+</BODY>
+</HTML>
