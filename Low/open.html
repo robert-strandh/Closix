@@ -585,7 +585,7 @@
 Under Linux, the O_NONBLOCK flag indicates that one wants to open but
 does not necessarily have the intention to read or write.  This is
 typically used to open devices in order to get a file descriptor for
-use with ioctl(2).
+use with <a href="ioctl.html">ioctl</a>.
 </P>
 
 <P>
@@ -599,7 +599,7 @@ access mode 3 (binary 11) in flags to mean: check for read and write
 permission on the file and return a descriptor that can't be used for
 reading or writing.  This nonstandard access mode is used by some
 Linux drivers to return a descriptor that is only to be used for
-device-specific ioctl(2) operations.
+device-specific <a href="ioctl.html">ioctl</a> operations.
 </P>
 
 <P>
@@ -624,13 +624,13 @@ time the system call returns.
 </P>
 
 <P>
-Note that open() can open device special files, but creat() cannot
-create them; use mknod(2) instead.
+Note that <tt>open</tt> can open device special files, but creat() cannot
+create them; use <a href="mknod.html">mknod</a> instead.
 
 <P>
-On NFS file systems with UID mapping enabled, open() may return a file
-descriptor but, for example, read(2) requests are denied with EACCES.
-This is because the client performs open() by checking the
+On NFS file systems with UID mapping enabled, <tt>open</tt> may return a file
+descriptor but, for example, <a href="read.html">read</a> requests are denied with EACCES.
+This is because the client performs <tt>open</tt> by checking the
 permissions, but UID mapping is performed by the server upon read and
 write requests.
 </P>
@@ -638,7 +638,7 @@ write requests.
 <P>
 If  the file is newly created, its st_atime, st_ctime, st_mtime fields
 (respectively, time of last access, time of last status change, and
-time of last modification; see stat(2)) are set to the current time,
+time of last modification; see <a href="stat.html">stat</a>) are set to the current time,
 and so are the st_ctime and st_mtime fields of the parent directory.
 Otherwise, if the file is modified  because of the O_TRUNC flag, its
 st_ctime and st_mtime fields are set to the current time. 
@@ -663,33 +663,34 @@ suffices.
 </P>
 
 <P>
-O_DIRECT I/Os should never be run concurrently with the fork(2) system
+O_DIRECT I/Os should never be run concurrently with the <a href="fork.html">fork</a> system
 call, if the memory buffer is a private mapping (i.e., any mapping
-created with the mmap(2) MAP_PRIVATE flag; this includes memory
+created with the <a href="mmap.html">mmap</a> MAP_PRIVATE flag; this includes memory
 allocated on the heap and statically allocated buffers).  Any such
 I/Os, whether submitted via an asynchronous I/O interface or from
-another thread in the process, should be completed before fork(2) is
+another thread in the process, should be completed before <a href="fork.html">fork</a> is
 called.  Failure to do so can result in data corruption and undefined
 behavior in parent and child processes.  This restriction does not
 apply when the memory buffer for the O_DIRECT I/Os was created using
-shmat(2) or mmap(2) with the MAP_SHARED flag.  Nor does this
+<a href="shmat.html">shmat</a> or <a href="mmap.html">mmap</a> with the MAP_SHARED flag.  Nor does this
 restriction apply when the memory buffer has been advised as
-MADV_DONTFORK with madvise(2), ensuring that it will not be available
-to the child after fork(2).
+MADV_DONTFORK with <a href="madvise.html">madvise</a>, ensuring that it will not be available
+to the child after <a href="fork.html">fork</a>.
 </P>
 
 <P>
 The O_DIRECT flag was introduced in SGI IRIX, where it has alignment
-restrictions similar to those of Linux 2.4.  IRIX has also a fcntl(2)
-call to query appropriate alignments, and sizes.  FreeBSD 4.x
-introduced a flag of the same name, but without alignment
-restrictions.
+restrictions similar to those of Linux 2.4.  IRIX has also
+a <a href="fcntl.html">fcntl</a> call to query appropriate alignments,
+and sizes.  FreeBSD 4.x introduced a flag of the same name, but
+without alignment restrictions.
 </P>
 
 <P>
 O_DIRECT support was added under Linux in kernel version 2.4.10.
 Older Linux kernels simply ignore this flag.  Some file systems may
-not implement the flag and open() will fail with EINVAL if it is used.
+not implement the flag and <tt>open</tt> will fail with EINVAL if it
+is used.
 </P>
 
 <P>
@@ -698,7 +699,7 @@ file, and especially to overlapping byte regions in the same file.
 Even when the file system correctly handles the coherency issues in
 this situation, overall I/O throughput is likely to be slower than
 using either mode alone.  Likewise, applications should avoid mixing
-mmap(2) of files with direct I/O to the same files.
+<a href="mmap.html">mmap</a> of files with direct I/O to the same files.
 </P>
 
 <P>
