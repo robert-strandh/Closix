@@ -1,0 +1,112 @@
+<HTML>
+<HEAD>
+  <TITLE>Function MMAP</TITLE>
+</HEAD>
+<BODY>
+<HR>
+
+<H2><I>Function</I> MMAP</H2>
+
+<H3>Syntax</H3>
+
+<P><B>mmap</B> <I>preferred-address</I> <I>length</I> <I>protection</I> <I>flags</I> <I>file-descriptor</I> <I>offset</I>
+  =&gt; <I>address</I>
+
+<H3>Arguments and values</H3>
+
+<P><I>preferred-address</I> -- A non-negative integer, or <tt>nil</tt>. </P>
+
+<P><I>length</I> -- A non-negative integer. </P>
+
+<P><I>protection</I> -- A non-negative fixnum.</P>
+
+<P><I>flags</I> -- A non-negative fixnum.</P>
+
+<P><I>file-descriptor</I> -- A non-negative fixnum.</P>
+
+<P><I>offset</I> -- A non-negative integer. </P>
+
+<P><I>address</I> -- A non-negative integer. </P>
+
+<H3>Description</H3>
+
+
+<P>
+  <tt>mmap</tt> creates a new mapping in the virtual address space of
+  the calling process.  The starting address for the new mapping is
+  specified in <i>preferred-address</i>.  The <i>length</i> argument
+  specifies the length of the mapping.
+</P>
+
+<P>
+  If <i>preferred-address</i> is <tt>nil</tt>, then the kernel chooses
+  the address at which to create the mapping; this is the most
+  portable method of creating a new mapping.
+  If <i>preferred-address</i> is not <tt>nil</tt>, then the kernel
+  takes it as a hint about where to place the mapping; on Linux, the
+  mapping will be created at a nearby page boundary.  The address of
+  the new mapping is returned as the result of the call.
+</P>
+
+<P>
+  The contents of a file mapping (as opposed to an anonymous mapping;
+  see <a href="map-anonymous.html">+map-anonymous+</a>), are initialized
+  using <i>length</i> bytes starting at offset <i>offset</i> in the
+  file (or other object) referred to by the file
+  descriptor <i>file-descriptor</i>.  The argument <i>offset</i> must
+  be a multiple of the page size.
+</P>
+
+<P>
+  The prot argument describes the desired memory protection of the
+  mapping (and must not conflict with the open mode of the file).  It
+  is either <a href="prot-none.html">+prot-none+</a> or the
+  bitwise <tt>or</tt> of one or more of the following flags:
+</P>
+
+<table border="1">
+  <tr>
+    <td><a href="prot-exec.html">+prot-exec+</a></td>
+    <td>
+      <P>
+	Pages may be executed.
+      </P>
+    </td>
+  </tr>
+  <tr>
+    <td><a href="prot-read.html">+prot-read+</a></td>
+    <td>
+      <P>
+	Pages may be read.
+      </P>
+    </td>
+  </tr>
+  <tr>
+    <td><a href="prot-write.html">+prot-write+</a></td>
+    <td>
+      <P>
+	Pages may be written.
+      </P>
+    </td>
+  </tr>
+  <tr>
+    <td><a href="prot-none.html">+prot-none+</a></td>
+    <td>
+      <P>
+	Pages may not be accessed.
+      </P>
+    </td>
+  </tr>
+
+</table>
+
+
+<P>More to be filled in later...</P>
+
+<H3>Errors</H3>
+
+
+<H3>Notes</H3>
+
+</BODY>
+</HTML>
