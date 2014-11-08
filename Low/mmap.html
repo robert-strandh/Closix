@@ -222,10 +222,162 @@
   is unspecified.
 </P>
 
-<P>More to be filled in later...</P>
-
 <H3>Errors</H3>
 
+<table border="1">
+  <tr>
+    <td>
+      <a href="eacces.html">+eacces+</a>
+    </td>
+    <td>
+      <P>
+	A file descriptor refers to a non-regular file.  Or
+	<a href="map-private.html">+map-private+</a> was requested,
+	but <i>file-descriptor</i> is not open for reading.  Or
+	<a href="map-shared.html">+map-shared+</a>	
+	<a href="map-shared.html">+map-shared+</a>
+	was requested and 
+	<a href="prot-write.html">+prot-write+</a> is set,
+	but <i>file-descriptor</i> is not open in read/write
+	(<a href="o-rdwr.html">+o-rdwr+</a>)
+	mode.  Or <a href="prot-write.html">+prot-write+</a> is set,
+	but the file is append-only.
+      </P>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <a href="eagain.html">+eagain+</a>
+    </td>
+    <td>
+      <P>
+	The file has been locked, or too much memory has been
+	locked (see <a href="setrlimit.html">setrlimit</a>).
+      </P>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <a href="ebadf.html">+ebadf+</a>
+    </td>
+    <td>
+      <P>
+	<i>file-descriptor</i> is not a valid file descriptor
+	(and <a href="map-anonymous.html">+map-anonymous+</a> was not
+	set).
+      </P>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <a href="einval.html">+einval+</a>
+      </td>
+    <td>
+      <P>
+	We don't like addr, length, or offset (e.g., they are too
+	large, or not aligned on a page boundary).
+      </P>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <a href="einval.html">+einval+</a>
+    </td>
+    <td>
+      <P>
+	(since Linux 2.6.12) length was 0.
+      </P>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <a href="einval.html">+einval+</a>
+    </td>
+    <td>
+      <P>
+	flags contained neither MAP_PRIVATE or MAP_SHARED, or
+	contained both of these values.
+      </P>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <a href="enfile.html">+enfile+</a>
+      </td>
+    <td>
+      <P>
+	The system limit on the total number of open files has been reached.
+      </P>
+    </td>
+  </tr>
+
+  <tr>
+    <td>
+      <a href="enodev.html">+enodev+</a>
+      </td>
+    <td>
+      <P>
+	The underlying filesystem of the specified file does not
+	support memory mapping.
+      </P>
+    </td>
+  </tr>
+
+  <tr>
+    <td>
+      <a href="enomem.html">+enomem+</a>
+      </td>
+    <td>
+      <P>
+	No memory is available, or the process's maximum number of
+	mappings would have been exceeded.
+      </P>
+    </td>
+  </tr>
+
+  <tr>
+    <td>
+      <a href="eperm.html">+eperm+</a>
+      </td>
+    <td>
+      <P>
+	The <i>protection</i> argument asks
+	for <a href="prot-exec.html">+prot-exec+</a> but the mapped
+	area belongs to a file on a filesystem that was mounted
+	no-exec.
+      </P>
+    </td>
+  </tr>
+
+  <tr>
+    <td>
+      <a href="etxtbsy.html">+etxtbsy+</a>
+      </td>
+    <td>
+      <P>
+	<a href="map-denywrite.html">+map-denywrite+</a> was set but
+	the object specified by <i>file-descriptor</i> is open for
+	writing.
+      </P>
+    </td>
+  </tr>
+
+  <tr>
+    <td>
+      <a href="eoverflow.html">+eoverflow+</a>
+      </td>
+    <td>
+      <P>
+        On 32-bit architecture together with the large file extension
+        (i.e., using 64-bit off_t): the number of pages used for
+        length plus number of pages used for offset would overflow
+        unsigned long (32 bits).
+      </P>
+    </td>
+  </tr>
+</table>
+
+<P>More to be filled in later...</P>
 
 <H3>Notes</H3>
 
