@@ -193,7 +193,34 @@
   </tr>
 </table>
 
+<P>
+  Of the above flags, only <a href="map-fixed.html">+map-fixed+</a> is
+  specified in POSIX.1-2001.  However, most systems also support
+  <a href="map-anonymous.html">+map-anonymous+</a> (or its
+ synonym <a href="map-anon.html">+map-anon+</a>).
+</P>
 
+<P>
+  Some systems document the additional
+  flags <a href="map-autogrow.html">+map-autogrow+</a>, 
+  <a href="map-autoresrv.html">+map-autoresrv+</a>,
+  <a href="map-copy.html">+map-copy+</a>,
+  and <a href="map-local..html">+map-local+</a>.
+</P>
+
+<P>
+  Memory mapped by <tt>mmap</tt> is preserved
+  across <a href="fork.html">fork</a> with the same attributes.
+</P>
+
+<P>
+  A file is mapped in multiples of the page size.  For a file that is
+  not a multiple of the page size, the remaining memory is zeroed when
+  mapped, and writes to that region are not written out to the file.
+  The effect of changing the size of the underlying file of a mapping
+  on the pages that correspond to added or removed regions of the file
+  is unspecified.
+</P>
 
 <P>More to be filled in later...</P>
 
