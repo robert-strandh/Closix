@@ -101,6 +101,41 @@
 </table>
 
 
+<P>
+  The <i>flags</i> argument determines whether updates to the mapping
+  are visible to other processes mapping the same region, and whether
+  updates are carried through to the underlying file.  This behavior
+  is determined by including exactly one of the following values in
+  flags:
+</P>
+
+<table border="1">
+  <tr>
+    <td><a href="map-shared.html">+map-shared+</a></td>
+    <td>
+      <P>
+	Share this mapping.  Updates to the mapping are visible to
+        other processes that map this file, and are carried through to
+        the underlying file.  The file may not actually be updated
+        until <a href="msync.html">msync</a>
+        or <a href="munmap.html">munmap</a> is called.
+      </P>
+    </td>
+  </tr>
+  <tr>
+    <td><a href="map-private.html">+map-private+</a></td>
+    <td>
+      <P>
+	Create a private copy-on-write mapping.  Updates to the
+        mapping are not visible to other processes mapping the same
+        file, and are not carried through to the underlying file.  It
+        is unspecified whether changes made to the file after the
+        <tt>mmap</tt> call are visible in the mapped region.
+      </P>
+    </td>
+  </tr>
+</table>
+
 <P>More to be filled in later...</P>
 
 <H3>Errors</H3>
