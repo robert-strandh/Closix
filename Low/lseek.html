@@ -1,0 +1,167 @@
+<HTML>
+<HEAD>
+</HEAD>
+<BODY>
+<HR>
+
+<H2><I>Function</I> LSEEK</H2>
+
+<H3>Syntax</H3>
+
+<P><B>dup</B> <I>file-descriptor</I> <I>offset</I> <I>whence</I>=&gt; <I>resulting-offset</I>, <I>error</I></P>
+
+<H3>Arguments and values</H3>
+
+<P><I>file-descriptor</I> -- A non-negative fixnum.</P>
+
+<P><I>offset</I> -- An integer.</P>
+
+<P><I>whence</I> -- A non-negative fixnum.</P>
+
+<P><I>resulting-offset</I> -- An integer.</P>
+
+<P><I>error</I> -- A fixnum. </P>
+
+<H3>Description</H3>
+
+<P>
+  This function repositions the offset of the open file associated
+  with the file descriptor <I>file-descriptor</I> to the argument
+  <I>offset</I> according to the directive <I>whence</I> as follows:
+</P>
+
+<table border="1">
+  <tr>
+    <td><a href="seek-set.html">+seek-set+</a></td>
+    <td>
+      <P>
+	The offset is set to <I>offset</I> bytes.
+      </P>
+    </td>
+  </tr>
+  <tr>
+    <td><a href="seek-cur.html">+seek-cur+</a></td>
+    <td>
+      <P>
+	The offset is set to its current location plus <I>offset</I>
+	bytes.
+      </P>
+    </td>
+  </tr>
+  <tr>
+    <td><a href="seek-end.html">+seek-end+</a></td>
+    <td>
+      <P>
+	The offset is set to the size of the file plus <I>offset</I>
+	bytes.
+      </P>
+    </td>
+  </tr>
+  <tr>
+    <td><a href="seek-data.html">+seek-data+</a></td>
+    <td>
+      <P>
+	Adjust the file offset to the next location in the file
+        greater than or equal to <I>offset</I> containing data.  If
+        <I>offset</I> points to data, then the file offset is set to
+        <I>offset</I>.
+      </P>
+    </td>
+  </tr>
+  <tr>
+    <td><a href="seek-hole.html">+seek-hole+</a></td>
+    <td>
+      <P>
+	Adjust the file offset to the next hole in the file greater
+	than or equal to <I>offset</I>.  If <I>offset</I> points into
+	the middle of a hole, then the file offset is set
+	to <I>offset</I>.  If there is no hole past <I>offset</I>,
+	then the file offset is adjusted to the end of the file (i.e.,
+	there is an implicit hole at the end of any file).
+      </P>
+    </td>
+  </tr>
+</table>
+
+<P>
+  In both of the above cases, the call fails if <I>offset</I> points
+  past the end of the file.
+</P>
+
+<P>
+  These operations allow applications to map holes in a sparsely
+  allocated file.  This can be useful for applications such as file
+  backup tools, which can save space when creating backups and
+  preserve holes, if they have a mechanism for discovering holes.
+</P>
+
+<P>
+  For the purposes of these operations, a hole is a sequence of zeros
+  that (normally) has not been allocated in the underlying file
+  storage.  However, a filesystem is not obliged to report holes, so
+  these operations are not a guaranteed mechanism for mapping the
+  storage space actually allocated to a file.  (Furthermore, a
+  sequence of zeros that actually has been written to the underlying
+  storage may not be reported as a hole.)  In the simplest
+  implementation, a filesystem can support the operations by making
+  <tt>+seek-hole+</tt> always return the offset of the end of the
+  file, and making <tt>+seek-data+</tt> always return <I>offset</I>
+  (i.e., even if the location referred to by <I>offset</I> is a hole,
+  it can be considered to consist of data that is a sequence of
+  zeros).
+</P>
+
+<H3>Errors</H3>
+
+<table border="1">
+  <tr>
+    <td><a href="ebadf.html">+ebadf+</a></td>
+    <td><I>file-descriptor</I> is not an open file descriptor.
+    </td>
+  </tr>
+  <tr>
+    <td><a href="einval.html">+einval+</a></td>
+    <td><I>whence</I> is not valid, or the resulting file offset would
+      be negative, or beyond the end of a seekable device.
+    </td>
+  </tr>
+  <tr>
+    <td><a href="eoverflow.html">+eoverflow+</a></td>
+    <td>The resulting file offset cannot be represented in the
+      fixed-precision data type of the underlying system.
+    </td>
+  </tr>
+  <tr>
+    <td><a href="espipe.html">+espipe+</a></td>
+    <td><I>file-descriptor</I> is associated with a pipe, socket, or
+    FIFO.
+    </td>
+  </tr>
+  <tr>
+    <td><a href="enxio.html">+enxio+</a></td>
+    <td><I>whence</I> is <TT>+seek-data+</TT> or <TT>+seek-hole+</TT>,
+    and the current file offset is beyond the end of the file.
+    </td>
+  </tr>
+</table>
+
+<H3>Notes</H3>
+
+<P>
+  Some devices are incapable of seeking and POSIX does not specify
+  which devices must support this system call.
+</P>
+
+<P>
+  On Linux, using this call on a terminal device
+  returns <TT>+espipe+</TT>.
+</P>
+
+<P>
+  Note that file descriptors created by <a href="dup.html">dup</a> or
+  <a href="fork.html">fork</a> share the current file position
+  pointer, so seeking on such files may be subject to race conditions.
+</P>
+
+</BODY>
+</HTML>
