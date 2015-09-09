@@ -11,12 +11,31 @@
   for POSIX system calls. 
 </p>
 
-<p>
+<P>
   The goal of the API is to provide a convenient interface to POSIX
   system calls, while still providing some optimizations such as
   allowing the caller to supply pre-allocated objects for the call to
   fill in. 
-</p>
+</P>
+
+<P>
+  We are aware of projects such as Ossicat.  The goal of this project
+  is quite different.  We are mainly interested in creating
+  a <i>specification</i> of an API that looks "natural" to Common
+  Lisp.  This requirement excludes the use of any foreign-function
+  interface (FFI) if using such an interface makes the underlying
+  lower-level programming language visible in the interface.  It is of
+  course not excluded to use some FFI to implement the various
+  functions of this interface, but the mapping may not direct for all
+  functions.
+</P>
+
+<P>
+  Since there is no direct correspondence between the functions in
+  this interface and similar functions in (say) libc, the
+  specification of this interface must be complete and without
+  reference to such similar functions.
+</P>
 
 <P>
   The API comes in two levels:
