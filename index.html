@@ -1,0 +1,95 @@
+<HTML>
+<HEAD>
+<TITLE>POSIX system-call API for Common Lisp</TITLE>
+<LINK rel="stylesheet" type="text/css" href="../mm.css">
+</HEAD>
+<BODY>
+<H1>POSIX system-call API for Common Lisp</H1>
+
+<p>
+  These pages represent an ongoing project to define a Common Lisp API
+  for POSIX system calls. 
+</p>
+
+<P>
+  The goal of the API is to provide a convenient interface to POSIX
+  system calls, while still providing some optimizations such as
+  allowing the caller to supply pre-allocated objects for the call to
+  fill in. 
+</P>
+
+<P>
+  We are aware of projects such as Ossicat.  The goal of this project
+  is quite different.  We are mainly interested in creating
+  a <i>specification</i> of an API that looks "natural" to Common
+  Lisp.  This requirement excludes the use of any foreign-function
+  interface (FFI) if using such an interface makes the underlying
+  lower-level programming language visible in the interface.  It is of
+  course not excluded to use some FFI to implement the various
+  functions of this interface, but the mapping may not direct for all
+  functions.
+</P>
+
+<P>
+  Since there is no direct correspondence between the functions in
+  this interface and similar functions in (say) libc, the
+  specification of this interface must be complete and without
+  reference to such similar functions.
+</P>
+
+<P>
+  The API comes in two levels:
+  <UL>
+    <LI>
+      <P>
+	A low-level interface with emphasis on performance.
+      </P>
+      <P>
+	This interface may not be extremely convenient to use, but
+	it has minimal overhead for applications that require
+	maximum performance.
+      </P>
+      <P>
+	Functions at this level take a constant number of arguments
+	so as to avoid the overhead of
+	processing <TT>&amp;optional</TT> or <TT>&amp;key</TT>
+	arguments.
+      </P>
+      <P>
+	Errors at this level are indicated by additional return
+	values in the form of small numbers.  Constant variables are
+	supplied to allow easy comparison for error values. 
+      </P>
+    </LI>
+    <LI>
+      <P>
+	A high-level interface with emphasis on convenience.
+      </P>
+      <P>
+	This interface may require some overhead in order to make
+	use more convenient to the programmer.
+      </P>
+      <P>
+	Functions at this level may take optional or keyword
+	arguments for convenience.  
+      </P>
+      <P>
+	Errors at this level are indicated by some condition being
+	signaled.  When appropriate, restarts are provided. 
+      </P>
+      <P>
+	Functionality at this level is implemented in terms of the
+	low-level interface.
+      </P>
+    </LI>
+  </UL>
+</P>
+
+<a href="table-of-contents.html">Table of contents</a>
+
+<HR>
+<address>
+robert.strandh@gmail.com
+</address>
+</BODY>
+</HTML>
