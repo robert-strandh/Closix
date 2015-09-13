@@ -1,0 +1,18 @@
+<HTML>
+<HEAD>
+</HEAD>
+<BODY>
+<HR>
+<A NAME="+seek-hole+"><I>Constant variable</I> <B>+SEEK-HOLE+</B></A>
+<P>
+  Used in <a href="lseek.html">lseek</a> to indicate that
+  the <i>offset</i> argument should be interpreted to mean that the
+  file offset should be adjusted to the next hole in the file greater
+  than or equal to offset.  If offset points into the middle of a
+  hole, then the file offset is set to offset. If there is no hole
+  past offset, then the file offset is adjusted to the end of the file
+  (i.e., there is an implicit hole at the end of any file).
+</P>
+
+</BODY>
+</HTML>
