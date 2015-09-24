@@ -1,0 +1,48 @@
+<HTML>
+<HEAD>
+</HEAD>
+<BODY>
+<HR>
+
+<H2><I>Function</I> FSTAT</H2>
+
+<H3>Syntax</H3>
+
+<P><B>fstat</B> <I>file-descriptor</I> <I>buf</I> =&gt; <I>error</I></P>
+
+<H3>Arguments and values</H3>
+
+<P><I>file-descriptor</I> -- A non-negative fixnum.</P>
+
+<P><I>buf</I> -- An instance of the <a href="class-stat.html">class <tt>stat</tt></a>.</P>
+
+<P><I>error</I> -- A fixnum. </P>
+
+<H3>Description</H3>
+
+<P>
+  This function returns information about the file indicated by
+  <I>file-descriptor</I>.  This information is returned in the slots
+  of <I>buf</I>.  No permissions are required on the file itself, but
+  execute (search) permission is required on all of the directories in
+  path that lead to the file.
+</P>
+
+<H3>Errors</H3>
+
+<table border="1">
+  <tr>
+    <td><a href="efault.html">+efault+</a></td>
+    <td><I>buf</I> is not is not an instance of
+      the <a href="class-stat.html">class <tt>stat</tt></a>
+    </td>
+  </tr>
+  <tr>
+    <td><a href="enomem.html">+enomem+</a></td>
+    <td>Out of memory (i.e., kernel memory).
+    </td>
+  </tr>
+</table>
+
+</BODY>
+</HTML>
