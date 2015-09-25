@@ -1,0 +1,83 @@
+<HTML>
+<HEAD>
+</HEAD>
+<BODY>
+<HR>
+
+<H2><I>Function</I> LSTAT</H2>
+
+<H3>Syntax</H3>
+
+<P><B>lstat</B> <I>path</I> <I>buf</I> =&gt; <I>error</I></P>
+
+<H3>Arguments and values</H3>
+
+<P><I>path</I> -- A string.</P>
+
+<P><I>buf</I> -- An instance of the <a href="class-stat.html">class <tt>stat</tt></a>.</P>
+
+<P><I>error</I> -- A fixnum. </P>
+
+<H3>Description</H3>
+
+<P>
+  This function returns information about the file whose name
+  is <I>path</I>.  This information is returned in the slots
+  of <I>buf</I>.  No permissions are required on the file itself, but
+  execute (search) permission is required on all of the directories in
+  path that lead to the file.
+</P>
+
+<P>
+  If <I>path</I> is a symbolic link, then information about the link
+  itself is returned, and not about the file that it refers to.
+</P>
+
+
+<H3>Errors</H3>
+
+<table border="1">
+  <tr>
+    <td><a href="eaccess.html">+eaccess+</a></td>
+    <td>Search permission is denied for one of the directories in the
+      path prefix of <I>path</I>. 
+    </td>
+  </tr>
+  <tr>
+    <td><a href="efault.html">+efault+</a></td>
+    <td><I>buf</I> is not is not an instance of
+      the <a href="class-stat.html">class <tt>stat</tt></a>
+    </td>
+  </tr>
+  <tr>
+    <td><a href="eloop.html">+eloop+</a></td>
+    <td>Too many symbolic links encountered while traversing the
+      path. 
+    </td>
+  </tr>
+  <tr>
+    <td><a href="enametoolong.html">+enametoolong+</a></td>
+    <td><I>path</I> is too long.
+    </td>
+  </tr>
+  <tr>
+    <td><a href="enoent.html">+enoent+</a></td>
+    <td>A component of <I>path</I> does not exists, or <I>path</I> is
+      the empty string.
+    </td>
+  </tr>
+  <tr>
+    <td><a href="enomem.html">+enomem+</a></td>
+    <td>Out of memory (i.e., kernel memory).
+    </td>
+  </tr>
+  <tr>
+    <td><a href="enotdir.html">+enotdir+</a></td>
+    <td>A component of the path prefix of <I>path</I> is not a
+      directory.
+    </td>
+  </tr>
+</table>
+
+</BODY>
+</HTML>
