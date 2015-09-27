@@ -1,0 +1,98 @@
+<HTML>
+<HEAD>
+</HEAD>
+<BODY>
+<HR>
+
+<H2><I>Function</I> MPROTECT</H2>
+
+<H3>Syntax</H3>
+
+<P><B>mprotect</B> <I>address</I> <I>length</I> <I>protection</I> =&gt; <I>error</I></P>
+
+<H3>Arguments and values</H3>
+
+<P><I>address</I> -- A non-negative integer.</P>
+
+<P><I>length</I> -- A non-negative integer.</P>
+
+<P><I>protection</I> -- A non-negative fixnum.</P>
+
+<P><I>error</I> -- A fixnum. </P>
+
+<H3>Description</H3>
+
+<P>
+  This function changes the protection of those memory page(s) of the
+  calling process that contain any part of the address range in the
+  interval [<I>address</I>, <I>address</I>+<I>length</I>-1].  The
+  argument <I>address</I> must be aligned to a page boundary.
+</P>
+
+<P>
+   If the calling process tries to access memory in a manner that
+   violates the protection, then the kernel generates a SIGSEGV signal
+   for the process.
+</P>
+
+<P>
+  The argument <I>protection</I> is
+  either <a href="prot-none.html">+prot-none+</a> or the bitwise OR of
+  the other values in the following list:
+</P>
+
+<table border="1">
+  <tr>
+    <td><a href="prot-read.html">+prot-read+</a></td>
+    <td>The memory can be read.
+    </td>
+  </tr>
+  <tr>
+    <td><a href="prot-write.html">+prot-write+</a></td>
+    <td>The memory can be modified.
+    </td>
+  </tr>
+  <tr>
+    <td><a href="prot-exec.html">+prot-exec+</a></td>
+    <td>The memory can be executed.
+    </td>
+  </tr>
+</table>
+
+
+<H3>Errors</H3>
+
+<table border="1">
+  <tr>
+    <td><a href="eaccess.html">+eaccess+</a></td>
+    <td>The memory cannot be given the specified access.  This can
+      happen, for example, if you <a href="mmap.html">mmap</a> a file
+      to which you have read-only access, then ask <tt>mprotect</tt>
+      to mark it <a href="prot-write.html">+prot-write+</a>.
+    </td>
+  </tr>
+  <tr>
+    <td><a href="einval.html">+einval+</a></td>
+    <td><I>addrress</I> is not a valid address, or not a multiple of
+      the system page size.
+    </td>
+  </tr>
+  <tr>
+    <td><a href="enomem.html">+enomem+</a></td>
+    <td>Internal kernel structures could not be allocated.
+    </td>
+  </tr>
+  <tr>
+    <td><a href="enomem.html">+enomem+</a></td>
+    <td>Addresses in the range
+      [<I>address</I>, <I>address</I>+<I>length</I>-1] are invalid for
+      the address space of the process, or specify one or more pages
+      that are not mapped.  (Before kernel 2.4.19, the error 
+      <a href="efault.html">+efault+</a> was incorrectly produced for
+      these cases.)
+    </td>
+  </tr>
+</table>
+
+</BODY>
+</HTML>
