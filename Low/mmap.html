@@ -10,7 +10,7 @@
 <H3>Syntax</H3>
 
 <P><B>mmap</B> <I>preferred-address</I> <I>length</I> <I>protection</I> <I>flags</I> <I>file-descriptor</I> <I>offset</I>
-  =&gt; <I>address</I>
+  =&gt; <I>address</I>, <I>error</I>
 
 <H3>Arguments and values</H3>
 
@@ -27,6 +27,8 @@
 <P><I>offset</I> -- A non-negative integer. </P>
 
 <P><I>address</I> -- A non-negative integer. </P>
+
+<P><I>error</I> -- A fixnum.</P>
 
 <H3>Description</H3>
 
