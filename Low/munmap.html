@@ -1,0 +1,67 @@
+<HTML>
+<HEAD>
+  <TITLE>Function MUNMAP</TITLE>
+</HEAD>
+<BODY>
+<HR>
+
+<H2><I>Function</I> MUNMAP</H2>
+
+<H3>Syntax</H3>
+
+<P><B>munmap</B> <I>address</I> <I>length</I> =&gt; <I>error</I>
+
+<H3>Arguments and values</H3>
+
+<P><I>address</I> -- A non-negative integer, or <tt>nil</tt>. </P>
+
+<P><I>length</I> -- A non-negative integer. </P>
+
+<P><I>error</I> -- A fixnum.</P>
+
+<H3>Description</H3>
+
+
+<P>
+  <tt>munmap</tt> deletes the mappings for the specified address
+  range, and causes further references to addresses within the range
+  to generate invalid memory references.  The region is also
+  automatically unmapped when the process is terminated.
+</P>
+
+<P>
+  The argument <i>address</i> must be a multiple of the page size.
+  All pages containing a part of the indicated range are unmapped, and
+  subsequent references to these pages will generate SIGSEGV.  It is
+  not an error if the indicated range does not contain any mapped
+  pages.
+</P>
+
+<H3>Errors</H3>
+
+<table border="1">
+  <tr>
+    <td>
+      <a href="einval.html">+einval+</a>
+      </td>
+    <td>
+      <P>
+	The argument <i>address</i> or the argument <i>length</i> 
+	is too large or not aligned on a page boundary.
+      </P>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <a href="einval.html">+einval+</a>
+    </td>
+    <td>
+      <P>
+	(since Linux 2.6.12) <i>length</i> was 0.
+      </P>
+    </td>
+  </tr>
+</table>
+
+</BODY>
+</HTML>
