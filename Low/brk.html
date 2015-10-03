@@ -1,0 +1,55 @@
+<HTML>
+<HEAD>
+  <TITLE>Function BRK</TITLE>
+</HEAD>
+<BODY>
+<HR>
+
+<H2><I>Function</I> BRK</H2>
+
+<H3>Syntax</H3>
+
+<P><B>brk</B> <I>address</I> =&gt; <I>error</I></P>
+
+<H3>Arguments and values</H3>
+
+<P><I>address</I> -- A non-negative integer.</P>
+
+<P><I>error</I> -- A fixnum.</P>
+
+<H3>Description</H3>
+
+  <P>
+    The function <tt>brk</tt> changes the location of the program
+    break, which defines the end of the process's data segment (i.e.,
+    the program break is the first location after the end of the
+    uninitialized data segment).  Increasing the program break has the
+    effect of allocating memory to the process; decreasing the break
+    deallocates memory.
+  </P>
+
+  <P>
+    The function <tt>brk</tt> sets the end of the data segment to the
+    value specified by <i>address</i>, when that value is reasonable,
+    the system has enough memory, and the process does not exceed its
+    maximum data size (see <a href="setrlimit.html">setrlimit</a>).
+  </P>
+
+  <P>
+    On success, <tt>brk</tt> returns zero.  On
+    error, <a href="enomem.html">+enomem+</a> is returned.
+  </P>
+
+<H3>Errors</H3>
+
+<table border="1">
+  <tr>
+    <td><a href="enomem.html">+enomem+</a></td>
+    <td>
+      Either <i>address</i> is invalid, or there is not enough memory
+      to set the break to the desired value.
+    </td>
+  </tr>
+
+</BODY>
+</HTML>
