@@ -1,0 +1,60 @@
+<HTML>
+<HEAD>
+  <TITLE>Function SBRK</TITLE>
+</HEAD>
+<BODY>
+<HR>
+
+<H2><I>Function</I> SBRK</H2>
+
+<H3>Syntax</H3>
+
+<P><B>sbrk</B> <I>increment</I> =&gt; <I>address</I>, <I>error</I></P>
+
+<H3>Arguments and values</H3>
+
+<P><I>increment</I> -- An integer.</P>
+
+<P><I>address</I> -- A non-negative integer.</P>
+
+<P><I>error</I> -- A fixnum.</P>
+
+<H3>Description</H3>
+
+  <P>
+    The function <tt>sbrk</tt> changes the location of the program
+    break, which defines the end of the process's data segment (i.e.,
+    the program break is the first location after the end of the
+    uninitialized data segment).  Increasing the program break has the
+    effect of allocating memory to the process; decreasing the break
+    deallocates memory.
+  </P>
+
+  <P>
+    The function <tt>sbrk</tt> increments the program's data space by
+    increment bytes.  Calling <tt>sbrk</tt> with an increment of 0 can
+    be used to find the current location of the program break.
+  </P>
+
+  <P>
+    On success, <tt>sbrk</tt> returns the previous program break (a
+    non-negative integer) as the first return value.  If the break was
+    increased, then this value is the address of the start of the
+    newly allocated memory.  On
+    error, <a href="enomem.html">+enomem+</a> is returned as the
+    second return value.
+  </P>
+
+<H3>Errors</H3>
+
+<table border="1">
+  <tr>
+    <td><a href="enomem.html">+enomem+</a></td>
+    <td>
+      Either <i>increment</i> is invalid, or there is not enough memory
+      to set the break to the desired value.
+    </td>
+  </tr>
+
+</BODY>
+</HTML>
