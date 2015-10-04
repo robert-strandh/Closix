@@ -8,14 +8,23 @@
 
 <p>
   These pages represent an ongoing project to define a Common Lisp API
-  for POSIX system calls. 
+  for invoking system calls on Unix-like systems.  This API is
+  inspired by POSIX.
 </p>
 
 <P>
-  The goal of the API is to provide a convenient interface to POSIX
-  system calls, while still providing some optimizations such as
-  allowing the caller to supply pre-allocated objects for the call to
-  fill in. 
+  The POSIX standard defines an API for invoking system calls on
+  Unix-like systems.  The specification is given as a collection of
+  functions in the C language with associated descriptions of the
+  number and types of the arguments, return values, and error
+  codes.
+</P>
+
+<P>
+  The goal of this project is to define an API for invoking such
+  system calls from Common Lisp, without referring to the C language
+  interface.  It can be thought of as an alternative to POSIX for
+  Common Lisp programmers.
 </P>
 
 <P>
@@ -26,8 +35,8 @@
   interface (FFI) if using such an interface makes the underlying
   lower-level programming language visible in the interface.  It is of
   course not excluded to use some FFI to implement the various
-  functions of this interface, but the mapping may not direct for all
-  functions.
+  functions of this interface, but the mapping may not be direct for
+  all functions.
 </P>
 
 <P>
@@ -60,6 +69,11 @@
 	values in the form of small numbers.  Constant variables are
 	supplied to allow easy comparison for error values. 
       </P>
+      <P>
+	When the corresponding POSIX system call requires a C-language
+	structure instance, the corresponding Common Lisp function
+	accepts an instance of subclass of STANDARD-OBJECT.
+      </P>
     </LI>
     <LI>
       <P>
@@ -80,6 +94,13 @@
       <P>
 	Functionality at this level is implemented in terms of the
 	low-level interface.
+      </P>
+      <P>
+	When the corresponding POSIX system call requires a C-language
+	structure instance, when practical, the corresponding Common
+	Lisp function accepts an <i>optional</i> instance of subclass
+	of STANDARD-OBJECT.  If this instance is not supplied, one
+	will be allocated.
       </P>
     </LI>
   </UL>
