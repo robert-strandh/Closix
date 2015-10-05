@@ -1,0 +1,43 @@
+<HTML>
+<HEAD>
+</HEAD>
+<BODY>
+<HR>
+
+<H2><I>Function</I> ALARM</H2>
+
+<H3>Syntax</H3>
+
+<P><B>alarm</B> <I>delay</I> =&gt; <I>previous-delay</I>, <I>error</I></P>
+
+<H3>Arguments and values</H3>
+
+<P><I>delay</I> -- A non-negative integer.</P>
+
+<P><I>previous-delay</I> -- A non-negative fixnum.</P>
+
+<P><I>error</I> -- A fixnum. </P>
+
+<H3>Description</H3>
+
+<P>
+  This function arranges for a SIGALRM signal to be delivered to the
+  calling process in <I>delay</I> seconds.
+</P>
+
+<P>
+  If <I>delay</i> is zero, any pending alarm is canceled.
+</P>
+
+<P>
+  In any event any previously set alarm is canceled.
+</P>
+
+<P>
+  The return value <I>previous-delay</I> is the number of seconds
+  remaining until any previously scheduled alarm was due to be
+  delivered, or zero if there was no previously scheduled alarm.
+</P>
+
+</BODY>
+</HTML>
