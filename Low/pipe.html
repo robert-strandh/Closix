@@ -1,0 +1,54 @@
+<HTML>
+<HEAD>
+  <TITLE>Function PIPE</TITLE>
+</HEAD>
+<BODY>
+<HR>
+
+<H2><I>Function</I> PIPE</H2>
+
+<H3>Syntax</H3>
+
+<P><B>pipe</B>
+  =&gt; <I>read-descriptor</I>, <I>write-descriptor</I>, <I>error</I></P>
+
+<H3>Values</H3>
+
+<P><I>read-descriptor</I> -- A fixnum. </P>
+
+<P><I>write-descriptor</I> -- A fixnum. </P>
+
+<P><I>error</I> -- A fixnum. </P>
+
+<H3>Description</H3>
+
+<P>
+<tt>pipe</tt> creates a pipe, a unidirectional data channel that can
+be used for interprocess communication.  The first two return values
+each contains a file descriptor.  The first return value refers to the
+read end of the pipe, and the second return value refers to the write
+end of the pipe.  Data written to the write end of the pipe is
+buffered by the kernel until it is read from the read end of the pipe.
+</P>
+
+<H3>Errors</H3>
+
+<table border="1">
+  <tr>
+    <td><a href="emfile.html">+emfile+</a></td>
+    <td>
+      The process already has the maximum number of file descriptors
+      open and tried to open a new one.
+    </td>
+  </tr>
+  <tr>
+    <td><a href="enfile.html">+enfile+</a></td>
+    <td>
+      The system limit on the total number of open files has been
+      reached.
+    </td>
+  </tr>
+</table>
+
+</BODY>
+</HTML>
